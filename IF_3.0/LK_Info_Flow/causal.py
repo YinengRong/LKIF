@@ -30,7 +30,7 @@ On output:
    nIF:              normalized information flow
    max_lag:          time order of lags (in IF)
    SEIF:             standard error of information flow
-   errr.e90/e95/e99: standard error at 90/95/99# significance level
+   err_e90/e95/e99: standard error at 90/95/99# significance level
    dnoise:           dH1_noise/dt with correlated noise
    p:                p-value of information flow
 

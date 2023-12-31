@@ -1,16 +1,3 @@
-Metadata-Version: 2.1
-Name: LK_Info_Flow
-Version: 3.0.0
-Summary: Liang Information Flow Package
-Author-email: Yineng Rong <yinengrong@foxmail.com>, "X. San Liang" <xsanliang@fudan.edu.cn>
-Maintainer-email: Yineng Rong <yinengrong@foxmail.com>
-Classifier: Programming Language :: Python :: 3
-Classifier: License :: OSI Approved :: MIT License
-Classifier: Operating System :: OS Independent
-Description-Content-Type: text/markdown
-Requires-Dist: numpy
-Requires-Dist: scipy
-
 Created on Mon Sep  7 16:26:22 2020
 
 @author: Yinengrong @   yinengrong@foxmail.com
