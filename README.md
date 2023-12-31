@@ -84,8 +84,6 @@ IF_result['TAB']
 
    ind: 2X1 vector (0<=ind[0]<ind[1]<=M); The series of the components of subsystem A are stored in column [0:ind[0]], and the components of subsystem B are in column [ind[0]:ind[1]]
 
-   
-   
    np(default 1): integer >=1, time advance in performing Euler forward differencing, e.g., 1, 2. Unless the series are generated with a highly chaotic deterministic system, np=1 should be used. 
    
    dt(default 1): frequency of sampling 
@@ -96,7 +94,7 @@ IF_result['TAB']
     TBA: info flow from subspace B to subspace A
 
 
-**More details are in the example file(https://github.com/YinengRong/LKIF/blob/main/example.ipynb)**
+**More details are in the example file(**More details are in the example file(https://github.com/YinengRong/LKIF/blob/main/IF_3.0/LK_Info_Flow/examples/example.ipynb)**
 
 There are 8 cases in the file:
 
