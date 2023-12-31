@@ -1,0 +1,115 @@
+
+
+Created on Mon Sep  7 16:26:22 2020
+
+@author: easycan @   yinengrong@foxmail.com
+
+## About the module
+The LK_Info_Flow module includes implementation of the Liang information flow algorithms.
+
+# installation
+
+```sh
+  pip install LK_Info_Flow
+```
+
+# updates:
+    v3.0 20230912
+    1. Time-series information flow and panel information flow are integrated into a unified
+    program
+    2.The calculation of normalized information flow has been  optimized. 
+    3. IO has been improved.
+
+    On input:
+%    1. X: matrix storing the M time series (each as Nx1 column vectors)
+%    2. max_lag: time order of lags
+%       >=1 lag time step
+%       -1 Determine the lag order of the data based on the AIC criterion.
+%       -2 Determine the lag order of the data based on the BIC criterion.
+%       (default 1)
+%    3. np: integer >=1, time advance in performing Euler forward 
+%	    differencing, e.g., 1, 2. Unless the series are generated
+%	    with a highly chaotic deterministic system, np=1 should be
+%	    used. 
+%       (default 1)
+%    4. dt: frequency of sampling 
+%       (default 1)
+%    5. series_teporal_order: Nx1 column vectors, records the timestamp of 
+%       each sample, with a minimum sampling interval of dt (used for 
+%       panel data, or missing measurement data).
+%       (default [])
+%    6. significance_test:  1  do the significance test (default)
+%                          =0  not (to save the computation time)
+% On output:
+%    IF:                 information flow
+%    nIF:              normalized information flow
+%    SEIF:             standard error of information flow
+%    err.e90/e95/e99:  standard error at 90/95/99% significance level
+%    dnoise:           dH1_noise/dt with correlated noise
+%    dnoise_old:       dH1_noise/dt without correlated noise (##  been commented out.)
+%    nIF:              normalized information flow with cross-correlated noise
+%    p:                p-value of information flow
+
+
+    v2.0  20230524
+    According to the data type, Liang information flow(LIF) causal inference
+    is divided into three categories: time series, panel data and subsystems
+    The first two categories include univariate causality, multivariate
+    causality, normalized causality, and corresponding significance tests
+
+# Inputs:
+    xx1,xx2: the series (n by 1 colum vectors)
+    xx: the series (n by m colum vectors)  m<=n
+    dt: sample time interval
+        default: 1 unit time
+    np: integer >=1, time advance in performing Euler forward
+    differencing, e.g., 1, 2. Unless the series are generated
+    with a highly chaotic deterministic system, np=1 should be
+    used.
+        default: 1
+    st: significance test
+        0 false
+        1(default) true
+    relative_IF: normalization of IF
+        0 false
+        1(default) true
+
+
+    panel_data_est:
+        t: time step order
+
+
+    groups_est
+        ind: a 2 colum vector, ind[0] < ind[1] <= m.
+            ind[0]: the index that separates A from the system:
+            (1...ind[0]) forms A,
+
+            ind[1]: the index that separates B from the system:
+            (ind[0]+1...ind[1]) forms B.
+
+# Outputs:
+    IF_result(time_series_est and panel_data_est):
+        T21: info flow from column to rows, m X m matrix
+        tau: normalized info flow
+        p:  siginificance(p-value)
+        e90:standard error at 90% level
+        e95:standard error at 95% level
+        e99:standard error at 99% level
+
+    IF_result(groups_est):
+        TAB: info flow from subspace A to subspace B
+        TBA: info flow from subspace B to subspace A
+
+
+
+# Citations:
+     X. San Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
+     X. San Liang, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
+     X. San Liang, 2016: Information flow and causality as rigorous notions ab initio. Phys. Rev. E, 94, 052201.
+     X. San Liang, 2021: Normalized Multivariate Time Series Causality Analysis and Causal Graph Reconstruction. Entropy. 23. 679.
+
+  for panel data:
+     Yineng Rong and X. San Liang, 2021: Panel Data Causal Inference Using a Rigorous Information Flow Analysis for Homogeneous, Independent and Identically Distributed Datasets. IEEE Access. 9, 47266-47274.
+  for subsystems:
+     X. San Liang, 2022: The Causal Interaction between Complex Subsystems. Entropy. 24, 3.
+
