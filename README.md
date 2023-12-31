@@ -6,7 +6,7 @@ Created on Mon Sep  7 16:26:22 2020
 @Maintainer: Yineng Rong @ yinengrong@foxmail.com
 
 ## About the module
-Causal analysis, a core aspect across various disciplines, has always garnered significant attention from the scientific community. In recent years, it has been viewed as a promising avenue for explaining and generalizing deep learning. However, incorporating causality into AI algorithms presents challenges such as ambiguity, non-quantifiability, and computational inefficiency etc.. Over the past two decades (Liang and Kleeman, 2005), these challenges have been largely addressed in a **quantitative causal theory——Liang information flow theory**, a rigorous theory of causal analysis derived from first principles. This theory has now led to scientific discoveries in various fields including finance, neuroscience, artificial intelligence, climate science, oceanography, and others. This module provides a means for implementing practical applications of this theory, including core code and select examples.
+Causal analysis, a fundamental aspect in various disciplines, has consistently garnered significant attention from the scientific community. In recent years, it has been recognized as a promising approach to explaining and generalizing deep learning. However, the incorporation of causality into the artificial intelligence algorithms poses challenges such as ambiguity, non-quantifiability, and computational inefficiency. Over the past two decades (Liang and Kleeman, 2005), substantial progress has been made in addressing these challenges through the development of a **quantitative causal theory — the Liang information flow theory**. This rigorous theory, derived from first principles, has resulted in notable scientific discoveries in fields ranging from finance, neuroscience, and artificial intelligence to climate science and oceanography. This module provides a practical implementation of the theory, complete with core code and selected examples.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/YinengRong/LKIF/blob/main/LICENSE)
 
@@ -67,9 +67,7 @@ IF_result['IF']
    
    SEIF:             standard error of information flow
    
-   errr.e90/e95/e99: standard error at 90/95/99# significance level
-   
-   dnoise:           dH1_noise/dt with correlated noise
+   err_e90/e95/e99: standard error at 90/95/99# significance level
    
    p:                p-value of information flow
 
@@ -98,8 +96,28 @@ IF_result['TAB']
     TBA: info flow from subspace B to subspace A
 
 
+**More details are in the example file(https://github.com/YinengRong/LKIF/blob/main/example.ipynb)**
 
-# Citations:
+There are 8 cases in the file:
+
+1 bivariate causality
+
+2 multivariable causality
+
+3 causality on panel data, discontinuous time series or ensemble data
+
+4 subsystems causality
+
+5 time delay, latent confunders, cyclic causality
+
+6 Large scale computing cost on Liang information flow
+
+7 causality on the data with cross-correlated noise
+
+8 temperal varying causality
+
+
+### Citations:
 * **X. San Liang**, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
 * **X. San Liang**, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
 * **X. San Liang**, 2016: Information flow and causality as rigorous notions ab initio. Phys. Rev. E, 94, 052201.
