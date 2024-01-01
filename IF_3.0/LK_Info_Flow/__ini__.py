@@ -1,7 +1,7 @@
 """
 Created on Mon Sep  7 16:26:22 2020
 
-@author: Rong Yineng (yinengrong@foxmail.com)
+@author: Yineng Rong (yinengrong@foxmail.com)
 
 see https://github.com/YinengRong/LKIF for details and examples
 
@@ -26,7 +26,7 @@ inputs:
      is used for panel data or datasets with missing measurements..
      (default [])
    significance_test:  1  do the significance test (default)
-                       0  not (to save the computation time)
+                       0  do not do (to save the computation time)
 outputs
    IF:               information flow
    nIF:              normalized information flow
@@ -44,10 +44,10 @@ Citations:
 
 ________________________old_version_______________________________________
 v2.0  20230524
-    According to the data type, Liang information flow(LIF) causal inference
-    is divided into three categories: time series, panel data and subsystems
-    The first two categories include univariate causality, multivariate 
-    causality, normalized causality, and corresponding significance tests
+    According to the data type, the information flow-based causal inference (LIF)
+    appears in three packages, i.e., packages with time series, panel data, and package for causality between subsystems.
+    The first two packages handle bivariate causality, multivariate 
+    causality, and normalized causality analyses, and the corresponding significance tests.
 
 On input:
     xx1,xx2: the series (n by 1 colum vectors)
@@ -61,10 +61,10 @@ On input:
         default: 1
     st: significance test 
         0 false
-        1(default) true
+        1 (default) true
     relative_IF: normalization of IF
         0 false
-        1(default) true
+        1 (default) true
     
     
     panel_data_est:
@@ -83,10 +83,10 @@ On output:
     IF_result(time_series_est and panel_data_est):
         T21: info flow from column to rows, m X m matrix
         tau: normalized info flow
-        p:  siginificance(p-value)
-        e90:standard error at 90% level
-        e95:standard error at 95% level
-        e99:standard error at 99% level
+        p:  siginificance (p-value)
+        e90: standard error at 90% level
+        e95: standard error at 95% level
+        e99: standard error at 99% level
     
     IF_result(groups_est):
         TAB: info flow from subspace A to subspace B
@@ -120,9 +120,9 @@ On input:
 
 On output:
    T21:  info flow from X2 to X1	(Note: Not X1 -> X2!)
-   err90: standard error at 90% significance level
-   err95: standard error at 95% significance level
-   err99: standard error at 99% significance level
+   err90: standard error at 90% confidence level
+   err95: standard error at 95% confidence level
+   err99: standard error at 99% confidence level
 
 ********************************************************************************************************************
 [tau21, dH1_star, dH1_noise] = tau_est(xx1, xx2, np)
@@ -156,9 +156,9 @@ On input:
 
  On output:
     T21:  info flow from X2 to X1	(Note: Not X1 -> X2!)
-    err90: standard error at 90% significance level
-    err95: standard error at 95% significance level
-    err99: standard error at 99% significance level
+    err90: standard error at 90% confidence level
+    err95: standard error at 95% confidence level
+    err99: standard error at 99% confidence level
 *******************************************************************************************************************
 Citations: 
      X. San Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
@@ -166,12 +166,10 @@ Citations:
      X. San Liang, 2016: Information flow and causality as rigorous notions ab initio. Phys. Rev. E, 94, 052201.
      X. San Liang, 2021: Normalized Multivariate Time Series Causality Analysis and Causal Graph Reconstruction. Entropy. 23. 679.
 
-  for panel data:
+  For causality with panel data,
      Yineng Rong and X. San Liang, 2021: Panel Data Causal Inference Using a Rigorous Information Flow Analysis for Homogeneous, Independent and Identically Distributed Datasets. IEEE Access. 9, 47266-47274. 
-  for subsystems:
+  For causality between subsystems,
      X. San Liang, 2022: The Causal Interaction between Complex Subsystems. Entropy. 24, 3.
-    
-
 """
 import scipy
 import numpy
