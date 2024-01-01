@@ -198,7 +198,3 @@ def groups_est(xx,ind,dt=1,np=1):
     IF_result={'TAB':TAB,'TBA':TBA}
     return IF_result
 
-
-
-
-

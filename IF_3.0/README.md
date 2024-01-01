@@ -1,14 +1,11 @@
-Created on Mon Sep  7 16:26:22 2020
+Created on Mon Sep  7 16:26:22 2020 
 
-@author: Yinengrong @   yinengrong@foxmail.com
+@Author: Yineng Rong @ yinengrong@foxmail.com
 
-Created on Wed Jul 12 10:45:37 2023
+ (based on the original MATLAB codes by X. San Liang, which are available at www.ncoads.org)
+        
+@Maintainer: Yineng Rong @ yinengrong@foxmail.com
 
-@author: Yinen
-
-Rong Yineng (yinengrong@foxmail.com)
-
-see https://github.com/YinengRong/LKIF for details and examples
 ## About the module
 Causal analysis, a fundamental problem in various disciplines, has recently been recognized as a promising approach to developing an explainable deep learning. However, incorporation of causality into artificial intelligence algorithms is faced with challenges such as ambiguity, non-quantifiability, and computational inefficiency in traditional formalisms. Over the past two decades, these challenges have been essentially fixed, with the development of a rigorous and **quantitative causality analysis - the Liang-Kleeman information flow theory** (Liang and Kleeman, 2005; Liang, 2008; 2014; 2016; 2021). This theory, which is based on a rigorous footing and derived from first principles, has resulted in notable scientific discoveries in fields ranging from finance, neuroscience, quantum mechanics, artificial intelligence to oceanography, meteorology and climate science. This module provides a practical implementation of the theory, complete with core codes and selected examples. All the codes are translated from the MATLAB scripts orginally written by X.S. Liang and can be downloaded from http://www.ncoads.org/.
 
@@ -118,7 +115,7 @@ IF_result['TAB']
 ```
 
 
-**More details are in the example file(https://github.com/YinengRong/LKIF/blob/main/IF_3.0/LK_Info_Flow/examples/example.ipynb)**
+**More details are in the example file (https://github.com/YinengRong/LKIF/blob/main/IF_3.0/LK_Info_Flow/examples/example.ipynb)**
 
 There are 8 cases in the file:
 
