@@ -34,7 +34,7 @@ To install **LK_Info_flow** package, use `pip` as follows:
 ```
 or
 ```sh
-pip install .\IF_3.0\dist\LK_Info_flow-py3-none-any.whl
+pip install .\IF_3.1\dist\LK_Info_flow-py3-none-any.whl
 ```
 
 ### Standard Call for time series or panel data
