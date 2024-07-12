@@ -22,10 +22,11 @@ Causal analysis, a fundamental problem in various disciplines, has recently been
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/YinengRong/LKIF/blob/main/LICENSE)
 
 
-
+## Python
 ### Requirements
 * numpy
 * scipy
+* graphiz (plot causal graph)
 
 ### Installation
 To install **LK_Info_flow** package, use `pip` as follows:
@@ -136,7 +137,17 @@ There are 8 cases in the file:
 8 time varying causality
 
 
-### Citations:
+## R
+### Requirements
+* stats
+* MASS
+* igraph (plot causal graph)
+
+
+
+
+
+## Citations:
 * **X. San Liang**, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
 * **X. San Liang**, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
 * **X. San Liang**, 2016: Information flow and causality as rigorous notions ab initio. Phys. Rev. E, 94, 052201.
