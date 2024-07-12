@@ -1,18 +1,9 @@
 # Replace scipy.stats with your R equivalent package
 library(stats)
 library(MASS)
+library(igraph)
 
-# auxiliary function for computing the auto correlation 
-autocorr <- function(x, mx){
-  np <- length(x)
-  acf <- acf(x, plot=F)
-  mx <- mx + 1
-  x <- rep(0, np)
-  x[1:mx] <- acf$acf[1:mx]
-  return(x)
-}
-
-pre_panel_data = function(XX, t, q){
+pre_panel_data <- function(XX, t, q){
   dims = dim(XX)
   n = dims[1]
   m = dims[3]
@@ -30,8 +21,12 @@ pre_panel_data = function(XX, t, q){
   tt[q+2, ] = tt[q+1, ] - 1
   dt = abs(diff(tt) + 1)
   max_dt = apply(dt, 2, max)
+  dims <- c(1, length(max_dt))
+  max_dt <- array(max_dt,dim=dims)
+  ind = which(max_dt <0.0000001)
+    dims <- c(1, length(ind))
+  ind <- array(ind,dim=dims)
   
-  ind = which(max_dt == 0)
   
   M = length(ind)
 
@@ -44,12 +39,14 @@ pre_panel_data = function(XX, t, q){
   }
   XL = array(dim = c(nq, M))
 
-  for(i in 1:nq){
-    XL[i, ] = XX[i, 2:(q+1), ind]
-  }
-
+  sub_XX <- XX[, 2:(q+1), ind]
+  #reordered_XX <- aperm(sub_XX, c(2, 1, 3)) 
+  XL <- array(data = as.vector(sub_XX), dim = c(nq, M))
+  
   return(list(X0=X0, XL=XL))
 }
+
+
 
 infocrit <- function(L, k, m){
     if(m - k - 1 <= 0){
@@ -60,6 +57,8 @@ infocrit <- function(L, k, m){
     bic <- -2 * L + k * log(m)
     return(list(aic=aic, bic=bic))
 }
+
+
 
 lag_order <- function(X, t, option) {
 
@@ -121,18 +120,18 @@ lag_order <- function(X, t, option) {
 
   return(max_lag)
 }
-check_dim <- function(mat){
-    dm <- dim(mat)
-    length(dm)
-}
+
+
 
 
 temporal_lag <- function(X, m1, max_lag) {
   # Removing causality from future to past when max_lag > 1
-  return(array(X[1:m1,], dim = c(m1, m1, max_lag)))
+  #return(array(X[1:m1,], dim = c(m1, m1, max_lag)))
+  XX <- aperm((array(X[1:m1,], dim = c(m1, max_lag, m1))),c(1,3,2))
+  return (XX)
 }
 
-multi_causality_est_OLS <- function(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1){
+multi_causality_est_OLS <- function(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1) {
     res <- list()
     dm <- dim(X)
 #    m <- dm[1]
@@ -177,31 +176,19 @@ multi_causality_est_OLS <- function(X, max_lag=1, np=1, dt=1, series_temporal_or
 
 
 
+
   A0 = X2 %*% ginv(X1)
-#print('A0')
-#print(A0)
-
   A = (A0 - diag(m2*max_lag+1)) / dt
-#print('A')
-#print(A)
-  
   At = A[1:(nrow(A)-1), 1:(ncol(A)-1)]
-
-  
   C = cov(t(X1[1:(nrow(X1)-1), ]))#cov(X1[1:(nrow(X1)-1), ])
 
-print(((C / diag(C))))
 
   IF = ((C / diag(C))) * At
-
-print('IF')
-print(IF)
 
   E = X2 - A0 %*% X1
   SIG = E %*% t(E) / (n - np - m2 - 1)
 
   B = sqrt(abs(SIG[1:(nrow(SIG)-1), 1:(ncol(SIG)-1)]) / dt)
-print(B)
   dH1_noise = colSums(B^2) / (2 * diag(C))
   Z = rowSums(abs(IF)) + abs(dH1_noise)
   Z = matrix(rep(Z, m2*max_lag), nrow = m2*max_lag, ncol = m2*max_lag)
@@ -228,8 +215,6 @@ print(B)
     e90_IF = SE_IF * z90
     e95_IF = SE_IF * z95
     e99_IF = SE_IF * z99
-    print('IF')
-    print(IF)
     res=list('IF' = temporal_lag(IF, m2,max_lag), 
          'nIF' = temporal_lag(nIF, m2,max_lag), 
          'dnoise' = dH1_noise[1:(length(dH1_noise)-m2)], 
@@ -247,43 +232,7 @@ print(B)
          'max_lag' = max_lag 
     )
   }
-#  if(is.null(series_temporal_order)){
-#     series_temporal_order <- 1:(dt * n)
-#  }
-#  if(max_lag < 0){
-#     max_lag <- lag_order(X, series_temporal_order/dt, max_lag)$lag
-#    }
-#  q1 <- max_lag + 1
-#  XX <- array(0, dim=append(m, c(q1, n+q1-1)))
-#  for(k in 1:q1){
-#     XX[,k, k:(k+n-1)] <- X
-#  }
-#  XX <- XX[,,1:n]
-#  XLPD <- pre_panel_data(XX, series_temporal_order/dt, max_lag)
-#  M <- ncol(XLPD$XL)
-#  X0 <- XLPD$X0
-#  XL <- array(append(XLPD$XL, XLPD$X0[1:(np*(max_lag-1)),], rep(1, M)), dim=c(M, ncol(XLPD$XL)))
-#  A <- (t(X0) %*% solve(t(XL)))[1:dm[1],]
-#  E <- X0 - A %*% XL
-#  SIG <- tcrossprod(E) / (n - m - 1)
-#  res$dnoise <- sum(diag(SIG[1:np, 1:np])) / (2 * diag(tcrossprod(XL[-(m+1),])))
-#  if(check_dim(SIG[n+1]) == 2){
-#     SIG <- matrix(SIG, ncol=1)
-#  }
-#  print('OK')
-#  C <- cov(X0[-c(1:np),])
-#  res$IF <- (t(sweep((C / diag(C)), 2, A[-(m+1),], "*"))) / dt
-#  if(significance_test){
-#    diag_SIG <- matrix(sqrt(diag(solve(t(XL) %*% XL))), nrow=1, ncol=M)
-#    SE <- diag_SIG %*% (diag(C) / np) / dt
-#    p <- 2 * (1 - pnorm(abs(res$IF / SE)))
-#    res$SE <- temporal_lag(SE, as.integer(res$IF), max_lag)
-#    res$IF <- temporal_lag(res$IF, as.integer(res$IF), max_lag)
-#    res$p <- temporal_lag(p, as.integer(res$IF), max_lag)
-#  }else{
-#    res$IF <- temporal_lag(res$IF, as.integer(res$IF), max_lag)
-#  }
-#  res$lag_max <- max_lag
+
   return(res)
 }
 
@@ -350,3 +299,64 @@ groups_est <- function(xx, ind, dt=1, np=1){
 }
 
 
+plot_causal_graph <- function(A, max_lag, f_name = "model") {  
+    # A=>matrix
+    A <- as.matrix(A)  
+      
+    N <- dim(A)  
+    edge_w<-v_t<-v_f<-NULL
+    for (i in 1:N[1]){
+      for (j in 1:N[2]) {
+        if (is.na(A[i,j])){}
+        else {
+           v_f=c(v_f,j)
+           v_t=c(v_t,i)
+           edge_w=c(edge_w,round(A[i,j]*100,2))
+        }
+      }
+    }
+    v_all<-unique(c(v_f,v_t))
+
+
+
+    v_name<-NULL
+    for (i in 1:length(v_all)){
+      if (v_all[i]<=N[1]){
+        v_name=c(v_name,paste('',as.character(v_all[i]-1),'',seq=''))
+      }
+      else {
+        lag_num=floor((v_all[i]-1)/N[1])
+        v_name=c(v_name,paste('',as.character(v_all[i]-lag_num*N[1]-1),'(-',as.character(max_lag-lag_num),')',seq=''))
+      }
+    }
+    
+    edges <- data.frame(from = v_f, to = v_t)
+    g <- graph_from_data_frame(edges, directed = TRUE)
+    V(g)$name <- v_name
+    E(g)$weight <-edge_w
+    png(filename = paste(f_name,".png",sep=''), width = 1200, height = 800, units = "px", res = 100)
+    plot(g, edge.label = E(g)$weight, vertex.label = V(g)$name, vertex.label.color = "black", vertex.size = 10, edge.arrow.size = 0.5)  
+    dev.off()
+}
+
+causal_graph <- function(causal_matrix, significance = NULL, c_threshold = 0.001, s_threshold = 0.01, f_name = 'model') {  
+    a <- abs(causal_matrix)  
+      
+    if (!is.null(significance)) {  
+        b <- abs(significance)  
+        a[b > s_threshold] <- NA  
+    }  
+      
+    a[a < c_threshold] <- NA
+    N=dim(a)
+    cc <- matrix(NA, nrow = N[1], ncol = N[2] * N[3])
+    for (i in 1:N[2]) {
+      j<-(i-1)*N[3]+1
+      cc[,j:(j+N[3]-1)]<-a[,i,]
+    }
+    for (i in 1:N[1]) {
+      cc[i,i]<- NA
+    }
+
+    plot_causal_graph(cc, N[3], f_name = "model")
+}
