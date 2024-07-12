@@ -22,10 +22,11 @@ Causal analysis, a fundamental problem in various disciplines, has recently been
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/YinengRong/LKIF/blob/main/LICENSE)
 
 
-
+## Python
 ### Requirements
 * numpy
 * scipy
+* graphiz (plot causal graph)
 
 ### Installation
 To install **LK_Info_flow** package, use `pip` as follows:
@@ -134,6 +135,16 @@ There are 8 cases in the file:
 7 causality analysis with data in the presencee of cross-correlated noise
 
 8 time varying causality
+
+
+## R
+### Requirements
+* stats
+* MASS
+* igraph (plot causal graph)
+
+
+
 
 
 ### Citations:
