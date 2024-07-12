@@ -147,7 +147,7 @@ There are 8 cases in the file:
 
 
 
-### Citations:
+## Citations:
 * **X. San Liang**, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
 * **X. San Liang**, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
 * **X. San Liang**, 2016: Information flow and causality as rigorous notions ab initio. Phys. Rev. E, 94, 052201.
