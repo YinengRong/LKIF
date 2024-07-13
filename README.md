@@ -196,7 +196,6 @@ IF_result.TAB
 ## Chagelogs in V3.1
 Updated the formula for p-value
 Added toolkit for R language
-Added partial explanation of readme
 
 
 The codes are rewritten from the MATLAB scripts (causality_est.m, tau_est.m, multi_causality_est.m, etc.) on Prof. X. San Liang's lab website (http://www.ncoads.org/article/show/67.aspx)
