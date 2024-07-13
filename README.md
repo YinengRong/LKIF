@@ -142,7 +142,8 @@ There are 8 cases in the file:
 The library is developed in version 4.4.1 of R
 * stats
 * MASS
-* igraph (plot causal graph)
+* igraph (Optional, plot causal graph)
+* R.matlab (Optional, to achieve data exchange between different software)
 
 ### Standard Call for time series or panel data
 ```sh
