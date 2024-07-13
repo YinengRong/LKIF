@@ -159,6 +159,24 @@ IF_result$TAB
 ```
 =>inputs and outputs can reffer to python package
 
+## Matlab
+### Requirements
+The library is developed in version 2020a of matlab
+
+### Standard Call for time series or panel data
+```sh
+addpath ...
+IF_result=multi_causality_est_OLS(X, max_lag, np, dt, series_temporal_order, significance_test):
+IF_result.IF
+```
+=>inputs and outputs can reffer to python package
+### Standard Call for subsystems
+```sh
+addpath ...
+IF_result=group_est(X, ind, np, dt):
+IF_result.TAB
+```
+=>inputs and outputs can reffer to python package
 
 ## Citations:
 * **X. San Liang**, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
