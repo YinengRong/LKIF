@@ -139,12 +139,25 @@ There are 8 cases in the file:
 
 ## R
 ### Requirements
+The library is developed in version 4.4.1 of R
 * stats
 * MASS
 * igraph (plot causal graph)
 
-
-
+### Standard Call for time series or panel data
+```sh
+source(LK_Info_Flow.R)
+IF_result=multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1):
+IF_result$IF
+```
+=>inputs and outputs can reffer to python package
+### Standard Call for subsystems
+```sh
+source(LK_Info_Flow.R)
+IF_result=group_est(X, ind, np=1, dt=1):
+IF_result$TAB
+```
+=>inputs and outputs can reffer to python package
 
 
 ## Citations:
