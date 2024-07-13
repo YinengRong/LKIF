@@ -38,7 +38,7 @@ or
 pip install .\IF_3.1\dist\LK_Info_flow-py3-none-any.whl
 ```
 
-### Standard Call for time series or panel data
+### Standard call for time series or panel data
 ```sh
 from LK_Info_Flow import causal
 IF_result=causal.multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
@@ -90,7 +90,7 @@ IF_result['IF']
 ```
 
 
-### Standard Call for subsystems
+### Standard call for subsystems
 ```sh
 from LK_Info_Flow import causal
 IF_result=causal.group_est(X, ind, np=1, dt=1):
@@ -145,14 +145,14 @@ The library is developed in version 4.4.1 of R
 * igraph (Optional, plot causal graph)
 * R.matlab (Optional, to achieve data exchange between different software)
 
-### Standard Call for time series or panel data
+### Standard call for time series or panel data
 ```sh
 source(LK_Info_Flow.R)
 IF_result=multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1):
 IF_result$IF
 ```
 =>inputs and outputs can reffer to python package
-### Standard Call for subsystems
+### Standard call for subsystems
 ```sh
 source(LK_Info_Flow.R)
 IF_result=group_est(X, ind, np=1, dt=1):
@@ -164,14 +164,14 @@ IF_result$TAB
 ### Requirements
 The library is developed in version 2020a of matlab
 
-### Standard Call for time series or panel data
+### Standard call for time series or panel data
 ```sh
 addpath ...
 IF_result=multi_causality_est_OLS(X, max_lag, np, dt, series_temporal_order, significance_test):
 IF_result.IF
 ```
 =>inputs and outputs can reffer to python package
-### Standard Call for subsystems
+### Standard call for subsystems
 ```sh
 addpath ...
 IF_result=group_est(X, ind, np, dt):
