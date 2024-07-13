@@ -74,7 +74,7 @@ IF_result['IF']
                        0  not (to save the computation time)
 ```
 
-**outputs**:
+**Outputs**:
 ```sh
    IF:               information flow
    
