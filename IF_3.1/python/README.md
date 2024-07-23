@@ -39,8 +39,8 @@ pip install .\IF_3.1\dist\LK_Info_flow-py3-none-any.whl
 
 ### Standard Call for time series or panel data
 ```sh
-from LK_Info_Flow import causal
-IF_result=causal.multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
+from LK_Info_Flow import multi_causality_est
+IF_result=multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
 IF_result['IF']
 ```
 
@@ -91,8 +91,8 @@ IF_result['IF']
 
 ### Standard Call for subsystems
 ```sh
-from LK_Info_Flow import causal
-IF_result=causal.group_est(X, ind, np=1, dt=1):
+from LK_Info_Flow import multi_causality_est
+IF_result=groups_est(X, ind, np=1, dt=1):
 IF_result['TAB']
 ```
 
