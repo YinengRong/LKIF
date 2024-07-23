@@ -91,7 +91,7 @@ E= X2(1:end,:)-A0(1:end,1:end)*X1(1:end,:);
 SIG = (E*E')/(n-np-m2-1);                                                 % in Liang (2014,2021) it is SIG = diag(diag((E*E')/(n0-np)));
 se_a=sqrt(diag(SIG(1:end-1,1:end-1))*diag(inv(X1(1:end-1,:)*X1(1:end-1,:)'))');
 SE_IF=se_a.*abs(C./diag(C))/dt;
-p=1-(1-normcdf(abs(IF./(SE_IF))))*2;
+p=(1-normcdf(abs(IF./(SE_IF))))*2;
 
 %significance_test
 if significance_test==1
