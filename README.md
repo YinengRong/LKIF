@@ -120,21 +120,21 @@ IF_result['TAB']
 
 There are 8 cases in the file:
 
-1 bivariate causality
+1. Bivariate causality analysis (Liang, 2014);
 
-2 multivariable causality
+2. Multivariable causality analysis (Liang, 2021);
 
-3 causality analysis with panel data, discontinuous time series or ensemble data
+3. causality analysis with panel data, discontinuous time series or ensemble data (Rong and Liang, 2021)
 
-4 causality between subsystems
+4. Causal inference between different subsystems (Liang, 2022);
 
-5 time delay, confounder, cyclic causality
+5. time delay causality analisys
 
-6 computational cost for large-scale Liang information flow analysis
+6. computational cost for large-scale Liang information flow analysis
 
-7 causality analysis with data in the presencee of cross-correlated noise
+7. causality analysis with data in the presencee of cross-correlated noise
 
-8 time varying causality
+8. time varying causality analysis;
 
 
 ## R
