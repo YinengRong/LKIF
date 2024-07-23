@@ -149,7 +149,7 @@ gendata <- function(AT,NT,k) {
         CE_3d[j,,] <- cor(t(result$E))
         CX_3d[j,,] <- cor(t(result$X))
 
-        cau <- multi_causality_est_OLS(result$X)
+        cau <- multi_causality_est(result$X)
 
         NIF_3d[j,,] <- cau$nIF
         p_3d[j,,] <- cau$p

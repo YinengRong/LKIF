@@ -36,7 +36,7 @@ for (i in 10000:90000) {
   tmp <- matrix(0, nrow=2, ncol=window_size*2+1)
   tmp[1, ] <- x[(i-window_size):(i+window_size)]
   tmp[2, ] <- y[(i-window_size):(i+window_size)]
-  cau <- multi_causality_est_OLS(X=tmp)
+  cau <- multi_causality_est(X=tmp)
   T21 <- cau$IF[,,1]
   e99 <- cau$err_e90[,,1]
   T[i] <- T21[1, 2]
@@ -47,7 +47,7 @@ for (i in 10000:90000) {
 close(pb)
 
 library(ggplot2)
-data <- data.frame(x=seq(20000, 80000), T=T[20000:80000], E99=E99[20000:80000],y=rep(0, 60001))
+data <- data.frame(x=seq(20000, 80000), T=T1[20000:80000], E99=E991[20000:80000],y=rep(0, 60001))
 p <- ggplot(data, aes(x=x, y=T)) + 
      geom_line(aes(x=x, y=T),color="red") +
      geom_line(aes(x=x, y=y), color="black") +
@@ -58,4 +58,4 @@ p <- ggplot(data, aes(x=x, y=T)) +
 p + theme_minimal() + theme(plot.title = element_text(hjust = 0.5, size = 16), plot.background = element_rect(fill = "white"), 
                             plot.margin = margin(1, 1, 1, 1, "cm"))
 
-ggsave("time_vary.png", plot = p, width = 11.11, height = 8.33, dpi = 72)
+ggsave("case8_time_vary.png", plot = p, width = 11.11, height = 8.33, dpi = 72)

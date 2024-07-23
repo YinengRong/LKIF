@@ -1,0 +1,15 @@
+digraph {
+	3 -> 4 [label=0.08]
+	4 -> 3 [label=0.03]
+	5 -> 0 [label=0.21]
+	5 -> 1 [label=0.31]
+	5 -> 3 [label=0.41]
+	6 -> 2 [label=0.27]
+	0 [label=X0]
+	1 [label=X1]
+	2 [label=X2]
+	3 [label=X3]
+	4 [label=X4]
+	5 [label=X5]
+	6 [label=X6]
+}

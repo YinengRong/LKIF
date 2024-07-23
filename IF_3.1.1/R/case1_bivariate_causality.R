@@ -31,12 +31,12 @@ cat(sprintf("y(i+1)=%.2f * x(i) + %.2f * y(i) + %.2f W\n", a12,a22,b2))
 #
 X <- rbind(x,y)
 
-##write.table(X, file = "case1_data.txt", sep = "\t", col.names = F, row.names = F)
+## write.table(X, file = "case1_data.txt", sep = "\t", col.names = F, row.names = F)
 X <- as.matrix(read.table("case1_data.txt", header = FALSE))
-print(dim(X))
+
 X1=X[1:2,201:10000] 
 #calculate the causality
-causal_graph <- multi_causality_est_OLS(X1)
+causal_graph <- multi_causality_est(X1)
 
 #information flow
 IF <- causal_graph$IF[,,1]
@@ -48,13 +48,13 @@ nIF <- causal_graph$nIF[,,1]
 e99 <- causal_graph$err_e99[,,1]
 
 if (abs(IF[1,2]) > e99[1,2]) {
-  cat(paste('x -> y percent:', format(nIF[1,2]*100, nsmall = 2), '%\n'))
+  cat(paste('y -> x percent:', format(nIF[1,2]*100, nsmall = 2), '%\n'))
 } else {
-  cat('x not -> y\n')
+  cat('y not -> x\n')
 }
 
 if (abs(IF[2,1]) > e99[2,1]) {
-  cat(paste('y -> x percent:', format(nIF[2,1]*100, nsmall = 2), '%\n'))
+  cat(paste('x -> y percent:', format(nIF[2,1]*100, nsmall = 2), '%\n'))
 } else {
-  cat('y not -> x\n')
+  cat('x not -> y\n')
 }

@@ -1,7 +1,7 @@
 # case 3(panel data, discontinuous time series or ensemble data):
 ## 3.1________________________________________________
 import numpy as np
-from LK_Info_Flow import causal
+from LK_Info_Flow import multi_causality_est
 import time
 from tqdm import tqdm 
 
@@ -17,7 +17,7 @@ xx[:,0,:]=np.array([0.4,0.5,0.6,0.7])
 print('----------generating the data----------')
 for icase in tqdm(range(case_num)):
     if icase!=0:
-        xx[icase,0,:]=xx[icase,0,:]*np.random.normal(0,0,4)
+        xx[icase,0,:]=xx[icase,0,:]+np.random.normal(0,1,4)
     for i in range(1000):
         xx[icase,i+1,0]=a11*xx[icase,i,0]+a21*xx[icase,i,1]+a31*xx[icase,i,2]+a41*xx[icase,i,3]+b1*np.random.normal();
         xx[icase,i+1,1]=a12*xx[icase,i,0]+a22*xx[icase,i,1]+a32*xx[icase,i,2]+a42*xx[icase,i,3]+b2*np.random.normal();
@@ -36,29 +36,29 @@ for j in range(case_num):
     t[10*j:10*(j+1),]=np.linspace(0,9,10);
 
 
-
+#X=np.loadtxt('E:\\BaiduSyncdisk\\papers\\author\\package\\R\\case3_data_X.txt')
+#t=np.loadtxt('E:\\BaiduSyncdisk\\papers\\author\\package\\R\\case3_data_t.txt')
 #calculate the causality (panel data)
 print('start calculate causality:')
 time_start=time.time()
-IF_panel=causal.multi_causality_est_OLS(X=X[:,:2].T,series_temporal_order=t)
+IF_panel=multi_causality_est(X=X[:,:4].T,series_temporal_order=t)
 
 T21=IF_panel.get('IF').squeeze()
-err=IF_panel.get('err_e99').squeeze()
+err=IF_panel.get('err_e90').squeeze()
 time_end=time.time()
 print('est_panel: T1->2: %8.4f e90: %8.4f'%(T21[1,0], err[1,0]))
-print('est_panel: T2->1: %8.4f e99: %8.4f'%(T21[0,1], err[0,1]))
+print('est_panel: T2->1: %8.4f e90: %8.4f'%(T21[0,1], err[0,1]))
 print('time cost: %8.4f s'%(time_end-time_start))
-
 
 
 #calculate the causality in one case 
 time_start=time.time()
-IF_time_series=causal.multi_causality_est_OLS(X=xx[1,:,:].T)
+IF_time_series=multi_causality_est(X=xx[1,:,:].T)
 T21=IF_time_series.get('IF').squeeze()
 err=IF_time_series.get('err_e99').squeeze()
 time_end=time.time()
 print('est_time_series: T1->2: %8.4f e90: %8.4f'%(T21[1,0], err[1,0]))
-print('est_time_series: T2->1: %8.4f e99: %8.4f'%(T21[0,1], err[0,1]))
+print('est_time_series: T2->1: %8.4f e90: %8.4f'%(T21[0,1], err[0,1]))
 print('time cost: %8.4f s'%(time_end-time_start))
 
 ## 3.2 ___________________________________________________________________________________________________________
@@ -73,7 +73,7 @@ Created on Wed Sep 13 08:37:30 2023
 """
 
 import numpy as np
-from LK_Info_Flow import causal
+from LK_Info_Flow import multi_causality_est
 import scipy.io as sio 
 from tqdm import tqdm
 NT = 12000
@@ -112,6 +112,7 @@ plt.xlim([-0.5, 11.5])
 plt.show()
 
 
+
 ### repeat the experiment 100 time
 B = np.eye(3) * 0.3 + np.ones((3, 3)) * 0.3
 X = np.zeros((3, NT+1200))
@@ -125,6 +126,7 @@ for in_ in tqdm(range(1, 101)):
         X[:, it] = np.dot(AT[:, :, (it+2) % 12].T, X[:, it-1]) + np.dot(B, np.random.randn(3, 1)).T
 
     nn = X.shape
+    
     N = X[:, 1201::12].shape
     
     xx = np.zeros((3, N[1]*2))
@@ -136,13 +138,13 @@ for in_ in tqdm(range(1, 101)):
     t = np.reshape(np.array([np.arange(1200,nn[1],12), np.arange(1201,nn[1],12)]).T, (1, N[1]*2))
 
 ## information flow for panel data    
-    IF=causal.multi_causality_est_OLS(X=xx,series_temporal_order=t)
+    IF=multi_causality_est(X=xx,series_temporal_order=t)
     NIF.append(IF['nIF'])
     P.append(IF['p'])
     SEIF.append(IF['SEIF'])
     IFs.append(IF['IF'])
 ## information flow for temperal data        
-    IF=causal.multi_causality_est_OLS(X=xx)
+    IF=multi_causality_est(X=xx)
     NIF1.append(IF['nIF'])
     P1.append(IF['p'])
     SEIF1.append(IF['SEIF'])
@@ -192,7 +194,6 @@ key1=(mean_E1[0,1]+mean_E1[1,0])/2
 
 A = np.eye(3)
 A[0, 1] = 1
-np.average(np.squeeze(np.abs(IFs / SEIF / np.sqrt(2000))),axis=0);
 sum_val = np.sum(np.abs(A-np.squeeze(np.abs(IFs / SEIF / np.sqrt(1000-3)) >key)), axis=0)
 print('structure Hanming Distance(panel)')
 print(sum_val)

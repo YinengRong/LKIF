@@ -9,11 +9,11 @@ Barnett, L., and A. K. Seth, 2014: The MVGC multivariate Granger causality toolb
 """
 
 import numpy as np
-from LK_Info_Flow import causal
+from LK_Info_Flow import multi_causality_est
 from scipy.linalg import eig  
 from scipy.linalg import cholesky  
 import scipy.io as scio
-from tqdm import tqdm
+
 def var_to_tsdata(A, SIG, m, N=1, mtrunc=None, decayfac=100):  
     if len(A.shape) == 1:  
         n = A.shape[0]  
@@ -33,7 +33,7 @@ def var_to_tsdata(A, SIG, m, N=1, mtrunc=None, decayfac=100):
         C = cholesky(SIG, lower=True)  
     except:
         print( 'covariance matrix not positive-definite')  
-  
+
     if N > 1:  # multi-trial  
         X = np.zeros((n, m, N))  
         E = np.zeros((n, m, N))  
@@ -123,7 +123,7 @@ if __name__=='__main__':
 
     j = 1  
     CE_3d=[];CX_3d=[];NIF_3d=[];IFs_3d=[];p_3d=[];SEIF_3d=[]
-    for i in tqdm(np.arange(-0.5, 0.5, 0.01)):  
+    for i in np.arange(-0.5, 0.5, 0.01):#tqdm(np.arange(-0.5, 0.5, 0.01)):  
         #print('%.2f'%i)  
         SIFT = np.array([[0.5, i], [i, 0.5]])    
         X, E, _ = var_to_tsdata(AT, SIFT, NT)
@@ -131,7 +131,7 @@ if __name__=='__main__':
         CE_3d.append(np.corrcoef(E))
         CX_3d.append(np.corrcoef(X))
       
-        cau = causal.multi_causality_est_OLS(X)  
+        cau = multi_causality_est(X)  
         NIF_3d.append(cau['nIF'])
         p_3d.append(cau['p'])
         SEIF_3d.append(cau['SEIF'])
@@ -152,12 +152,12 @@ ylim=[[10**(-7),10**0.5],[10**(-4),10**0.2],[10**(-4),10**0.2],[10**(-4),10**0.2
 
 # normalized IF
 for i in range(4):
-    data1=scio.loadmat('data'+str(i+1)+'.mat')
+    data1=scio.loadmat('data_'+str(i+1)+'.mat')
     C=data1['CE']
-    x=C[0,1]
+    x=C[:,0,1]
     NIF=data1['NIF']
-    y1=abs(NIF[0,1])
-    y2=abs(NIF[1,0])
+    y1=abs(NIF[:,0,1])
+    y2=abs(NIF[:,1,0])
     plt.subplot(221+i)
     #plot
     plt.semilogy(x, y1, lw=1.5, c='b', alpha=0.7)

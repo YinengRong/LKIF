@@ -1,7 +1,7 @@
 # case 3(panel data, discontinuous time series or ensemble data):
 ## 3.1________________________________________________
 library(progress)
-
+source("LK_Info_Flow.R")
 # Define parameters
 a <- matrix(c(0.3, 0, 0, 0.4,
               0.5, 0.7, 0.1, 0.5,
@@ -53,7 +53,7 @@ X <- as.matrix(read.table("case3_data_X.txt", header = FALSE))
 t <- as.matrix(read.table("case3_data_t.txt", header = FALSE))
 
 # Calculate causality with temperal index (panel data) 
-IF_panel <- multi_causality_est_OLS(X = t(X[,1:4]), series_temporal_order = t)
+IF_panel <- multi_causality_est(X = t(X[,1:4]), series_temporal_order = t)
 time_end <- Sys.time()
 
 T21=IF_panel$IF[,,1]
@@ -71,7 +71,7 @@ cat(sprintf('time cost: %8.4f s\n', as.numeric(difftime(time_end, time_start, un
 
 
 # Calculate causality with temperal index (panel data) 
-IF_panel <- multi_causality_est_OLS(X = t(X[,1:4]))
+IF_panel <- multi_causality_est(X = t(X[,1:4]))
 time_end <- Sys.time()
 
 T21=IF_panel$IF[,,1]
@@ -156,13 +156,13 @@ for (in_ in 1:100) {
 
   ## Information flow for panel data
   
-  cau2 <- multi_causality_est_OLS(X = xx, series_temporal_order = t)
+  cau2 <- multi_causality_est(X = xx, series_temporal_order = t)
   NIF[in_,,] <- cau2$nIF[,,1]
    IF[in_,,] <- cau2$IF[,,1]
     P[in_,,] <- cau2$p[,,1]
   SEIF[in_,,]<- cau2$SEIF[,,1]
   ## Information flow for temporal data
-  cau2 <- multi_causality_est_OLS(X = xx)
+  cau2 <- multi_causality_est(X = xx)
   NIF1[in_,,] <- cau2$nIF[,,1]
    IF1[in_,,] <- cau2$IF[,,1]
     P1[in_,,] <- cau2$p[,,1]

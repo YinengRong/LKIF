@@ -1,8 +1,7 @@
 # case 8(temperal varying):
 import numpy as np
-from LK_Info_Flow import causal
 from tqdm import tqdm
-from LK_Info_Flow import causal
+from LK_Info_Flow import multi_causality_est
 a11=0.3;a12=-0.4;a22=0.7;a21=0;b1=0.4;b2=0.5;
 x=np.zeros([100000,])
 y=np.zeros([100000,])
@@ -32,7 +31,7 @@ for i in tqdm(range(10000,90000)):
     tmp=np.zeros([2,window_size*2]);
     tmp[0]=x[i-window_size:i+window_size];
     tmp[1]=y[i-window_size:i+window_size];
-    cau=causal.multi_causality_est_OLS(tmp);
+    cau=multi_causality_est(tmp);
     T21=cau['IF'].squeeze();
     e99=cau['err_e90'].squeeze();
     T[i]=T21[0,1];E99[i]=e99[0,1];

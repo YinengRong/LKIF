@@ -1,40 +1,40 @@
 source("LK_Info_Flow.R")
 # Set the random seed
-set.seed(0)
+#set.seed(0)
 
 # Generate dataset
-a <- matrix(c(0.3, 0, 0, 0,
-              0.5, 0.7, 0.1, 0,
-              0, 0.3, 0.5, 0,
-              0.2, 0.4, 0.3, 0.1), nrow = 4, byrow = TRUE)
+  
 
-b <- c(0.4, 0.5, 0.6, 0.7)
+A <- matrix(c(0, -0.5, 0, 0, 0, 0,  
+             0, 0, 0.7, 0, 0, 0,  
+            -0.6, -0.0, -0.6, -0.0, 0, 0,  
+             0, 0, 0, 0.7, 0.2, 0,  
+             0.0, 0.0, -0.0, 0.4, 0.0, 0.0,  
+             0, 0.8, 0, 0, 0.7, -0.5), nrow=6, byrow=TRUE)  
+b <- c(0.1, 0.7, 0.5, 0.2, 0.8, 0.3)  
+  
+M <- 6  
+xx <- matrix(0, nrow=100001, ncol=M)  
+xx[1,] <- c(0.4, 0.5, 0.6, 0.7, 0.6, 0.7)  
+  
+for (i in 2:100001) {  
+  xx[i,] <- A %*% xx[i-1,] + b + rnorm(M)  
+}  
 
-xx <- matrix(0, nrow = 1001, ncol = 4)
-xx[1, ] <- c(0.4, 0.5, 0.6, 0.7)
-
-for (i in 1:1000) {
-    xx[i+1, 1] <- a[1,1]*xx[i,1] + a[1,2]*xx[i,2] + a[1,3]*xx[i,3] + a[1,4]*xx[i,4] + b[1]*rnorm(1)
-    xx[i+1, 2] <- a[2,1]*xx[i,1] + a[2,2]*xx[i,2] + a[2,3]*xx[i,3] + a[2,4]*xx[i,4] + b[2]*rnorm(1)
-    xx[i+1, 3] <- a[3,1]*xx[i,1] + a[3,2]*xx[i,2] + a[3,3]*xx[i,3] + a[3,4]*xx[i,4] + b[3]*rnorm(1)
-    xx[i+1, 4] <- a[4,1]*xx[i,1] + a[4,2]*xx[i,2] + a[4,3]*xx[i,3] + a[4,4]*xx[i,4] + b[4]*rnorm(1)
-}
-
-#print the structure of the system
-cat(sprintf("x1(i+1)=%.2f * x1(i) + %.2f * x2(i) + %.2f * x3(i) + %.2f * x4(i) + %.2f W\n", a[1,1], a[1,2], a[1,3], a[1,4], b[1]))
-cat(sprintf("x2(i+1)=%.2f * x1(i) + %.2f * x2(i) + %.2f * x3(i) + %.2f * x4(i) + %.2f W\n", a[2,1], a[2,2], a[2,3], a[2,4], b[2]))
-cat(sprintf("x3(i+1)=%.2f * x1(i) + %.2f * x2(i) + %.2f * x3(i) + %.2f * x4(i) + %.2f W\n", a[3,1], a[3,2], a[3,3], a[3,4], b[3]))
-cat(sprintf("x4(i+1)=%.2f * x1(i) + %.2f * x2(i) + %.2f * x3(i) + %.2f * x4(i) + %.2f W\n", a[4,1], a[4,2], a[4,3], a[4,4], b[4]))
 
 # Initialization
 Nxx <- dim(xx)
-t <- seq(0, 1000, by = 1) # time series
+xx <- t(xx[10001:nrow(xx), ])
+
 
 # Calculate the causality
-#cau2 <- multi_causality_est_OLS(X = t(xx), series_temporal_order = t)
-#write.table(t(xx), file = "case2_data.txt", sep = "\t", col.names = F, row.names = F)
+#cau2 <- multi_causality_est(X = xx)
+# write.table(xx, file = "case2_data.txt", sep = "\t", col.names = F, row.names = F)
 X <- as.matrix(read.table("case2_data.txt", header = FALSE))
-cau2 <- multi_causality_est_OLS(X = X, series_temporal_order = t)
+cau2 <- multi_causality_est(X = t(X))
+
+
+causal_graph(causal_matrix = cau2$nIF, f_name = 'case2', plot_style='kk')
 
 nIF=cau2$nIF[,,1]
 IF=cau2$IF[,,1]
@@ -43,8 +43,8 @@ p=cau2$p[,,1]
 
 
 # Qualitative results
-for (i in 1:4) {
-  for (j in 1:4) {
+for (i in 1:Nxx[2]) {
+  for (j in 1:Nxx[2]) {
     if (abs(IF[i,j]) > err[i,j]) {
       IF[i,j] <- 1
     }
@@ -56,7 +56,7 @@ for (i in 1:4) {
 
 # Print results xj -> xi
 cat('xj -> xi:\n')
-f <- '    j'
+f <- '    i'
 for (i in 1:Nxx[2]) {
   f <- paste0('    ', f)
 }
@@ -68,7 +68,7 @@ for (i in 1:(Nxx[2]-1)) {
 cat(f, '\n')
 for (j in 1:Nxx[2]) {
   if (j == floor(Nxx[2] / 2)) {
-    f <- ' i'
+    f <- ' j'
   } else {
     f <- '  '
   }
@@ -83,7 +83,7 @@ for (j in 1:Nxx[2]) {
 
 # Print results xj -> xi
 cat('Tj -> i:\n')
-f <- '    j'
+f <- '    i'
 for (i in 1:Nxx[2]) {
   f <- paste0('    ', f)
 }
@@ -95,7 +95,7 @@ for (i in 1:(Nxx[2]-1)) {
 cat(f, '\n')
 for (j in 1:Nxx[2]) {
   if (j == floor(Nxx[2] / 2)) {
-    f <- ' i'
+    f <- ' j'
   } else {
     f <- '  '
   }
@@ -109,7 +109,7 @@ for (j in 1:Nxx[2]) {
 # significant test (err99)
 
 cat('e99:\n')
-f <- '    j'
+f <- '    i'
 for (i in 1:Nxx[2]) {
   f <- paste0('    ', f)
 }
@@ -121,7 +121,7 @@ for (i in 1:(Nxx[2]-1)) {
 cat(f, '\n')
 for (j in 1:Nxx[2]) {
   if (j == floor(Nxx[2] / 2)) {
-    f <- ' i'
+    f <- ' j'
   } else {
     f <- '  '
   }
@@ -135,7 +135,7 @@ for (j in 1:Nxx[2]) {
 #significant test (p-value)
 
 cat('p:\n')
-f <- '    j'
+f <- '    i'
 for (i in 1:Nxx[2]) {
   f <- paste0('    ', f)
 }
@@ -147,7 +147,7 @@ for (i in 1:(Nxx[2]-1)) {
 cat(f, '\n')
 for (j in 1:Nxx[2]) {
   if (j == floor(Nxx[2] / 2)) {
-    f <- ' i'
+    f <- ' j'
   } else {
     f <- '  '
   }

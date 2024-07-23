@@ -1,7 +1,7 @@
 # case 1 (bivariate causality):
 import numpy as np
 np.random.seed(0)  
-from LK_Info_Flow import causal
+from LK_Info_Flow import multi_causality_est
 #import matplotlib.pyplot as plt
 
 #generate dataset
@@ -21,9 +21,9 @@ print ("y(i+1)=%.2f * x(i) + %.2f * y(i) + %.2f W" % (a12, a22,b2))
 #initialization
 X=np.ones((2,10000));
 X[0]=x;X[1]=y;
-
+X=np.loadtxt('E:\\BaiduSyncdisk\\papers\\author\\package\\R\\case1_data.txt')
 #calculate the causality
-causal_graph=causal.multi_causality_est_OLS(X[:,200:]);
+causal_graph=multi_causality_est(X[:,200:]);
 
 
 #information flow
@@ -42,12 +42,12 @@ e99=np.squeeze(causal_graph.get('err_e99'));
 
 # show the results
 if abs(IF[0,1])>e99[0,1]:
-    print('x -> y percent:%5.2f' % (nIF[0,1]*100)+'%')
+    print('y -> x precent:%5.2f' % (nIF[0,1]*100)+'%')
 else:
-    print('x not -> y')
+    print('y not -> x')
 
 
 if abs(IF[1,0])>e99[1,0]:
-    print('y -> x precent:%5.2f' % (nIF[1,0]*100)+'%')
+    print('x -> y percent:%5.2f' % (nIF[1,0]*100)+'%')
 else:
-    print('y not -> x')
+    print('x not -> y')

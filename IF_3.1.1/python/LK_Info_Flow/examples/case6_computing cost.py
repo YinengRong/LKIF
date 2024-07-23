@@ -2,7 +2,7 @@
 import time
 from tqdm import tqdm
 import numpy as np
-from LK_Info_Flow import causal
+from LK_Info_Flow import multi_causality_est
 
 #generate data
 NN=[200,1000,5000,10000]  #time steps
@@ -47,7 +47,7 @@ for iN in range(3):
                 xx1[:,(1+i)*M:(2+i)*M]=xx[i+1:N-nlag+i+1,:]
 #calculate information flow            
             ts=time.time()
-            cau=causal.multi_causality_est_OLS(X=xx1.T);
+            cau=multi_causality_est(X=xx1.T);
             #T21=cau;
             te=time.time()
             tcost.append(te-ts)
