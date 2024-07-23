@@ -1,6 +1,6 @@
 [project]
 name = "LK_Info_Flow"
-version = '3.1.0'
+version = '3.1.1'
 description='Liang Information Flow Package'
 authors = [
   {name = "Yineng Rong", email = "yinengrong@foxmail.com"},

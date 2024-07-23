@@ -35,13 +35,13 @@ To install **LK_Info_flow** package, use `pip` as follows:
 ```
 or
 ```sh
-pip install .\IF_3.1\dist\LK_Info_flow-py3-none-any.whl
+pip install .\IF_3.1.1\dist\LK_Info_flow-py3-none-any.whl
 ```
 
 ### Standard call for time series or panel data
 ```sh
-from LK_Info_Flow import causal
-IF_result=causal.multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
+from LK_Info_Flow import multi_causality_est
+IF_result=multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
 IF_result['IF']
 ```
 
@@ -92,8 +92,8 @@ IF_result['IF']
 
 ### Standard call for subsystems
 ```sh
-from LK_Info_Flow import causal
-IF_result=causal.group_est(X, ind, np=1, dt=1):
+from LK_Info_Flow import groups_est
+IF_result=groups_est(X, ind, np=1, dt=1):
 IF_result['TAB']
 ```
 
@@ -148,14 +148,14 @@ The library is developed in version 4.4.1 of R
 ### Standard call for time series or panel data
 ```sh
 source(LK_Info_Flow.R)
-IF_result=multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1):
+IF_result=multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1):
 IF_result$IF
 ```
 =>inputs and outputs can reffer to python package
 ### Standard call for subsystems
 ```sh
 source(LK_Info_Flow.R)
-IF_result=group_est(X, ind, np=1, dt=1):
+IF_result=groups_est(X, ind, np=1, dt=1):
 IF_result$TAB
 ```
 =>inputs and outputs can reffer to python package
@@ -167,14 +167,14 @@ The library is developed in version 2020a of matlab
 ### Standard call for time series or panel data
 ```sh
 addpath ...
-IF_result=multi_causality_est_OLS(X, max_lag, np, dt, series_temporal_order, significance_test):
+IF_result=multi_causality_est(X, np, dt,  max_lag, series_temporal_order, significance_test):
 IF_result.IF
 ```
 =>inputs and outputs can reffer to python package
 ### Standard call for subsystems
 ```sh
 addpath ...
-IF_result=group_est(X, ind, np, dt):
+IF_result=groups_est(X, ind, np, dt):
 IF_result.TAB
 ```
 =>inputs and outputs can reffer to python package
@@ -194,10 +194,7 @@ IF_result.TAB
 **for subsystems:**
 * **X. San Liang, 2022**: The Causal Interaction between Complex Subsystems. Entropy. 24, 3.
 
-## Chagelogs in V3.1
-Update the formula for p-value
-
-Add toolkit for R language
-
+## Chagelogs in V3.1.1
+Optimized some IO interfaces.
 
 The codes are rewritten from the MATLAB scripts (causality_est.m, tau_est.m, multi_causality_est.m, etc.) on Prof. X. San Liang's lab website (http://www.ncoads.org/article/show/67.aspx)
