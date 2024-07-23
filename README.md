@@ -116,7 +116,7 @@ IF_result['TAB']
 ```
 
 
-**More details are in the example file ([example.ipynb](https://github.com/YinengRong/LKIF/blob/main/IF_3.1.1/python/LK_Info_Flow/examples/example.ipynb))**
+**More details are in the example file ([example.ipynb](https://github.com/YinengRong/LKIF/blob/Pre-release/IF_3.1.1/python/LK_Info_Flow/examples/example.ipynb))**
 
 There are 8 cases in the file:
 
