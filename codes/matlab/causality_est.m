@@ -14,14 +14,17 @@ function [T21, err90, err95, err99] = causality_est(xx1, xx2, np)
 %
 % On output:
 %    T21:  info flow from X2 to X1	(Note: Not X1 -> X2!)
-%    err90: standard error at 90% significance level
-%    err95: standard error at 95% significance level
-%    err99: standard error at 99% significance level
+%    err90: standard error at 90% confidence level
+%    err95: standard error at 95% confidence level
+%    err99: standard error at 99% confidence level
 %
 % Citations: 
 %    X. San Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
 %    X. San Liang, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
 
+% Note: This is the original matlab program for causality estimation 
+% for 2 time series by X.S. Liang in 2014. 
+% Authorized by X.S. Liang to release here.
 
 
 dt = 1;	

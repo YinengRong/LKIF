@@ -23,6 +23,11 @@ function [tau21, dH1_star, dH1_noise] = tau_est(xx1, xx2, np)
 %    X. San Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
 %    X. San Liang, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
 
+% Note: This is the original matlab program for the normalization of
+%       the causality between two time series coded by X. San Liang 
+%       in 2014. 
+% Authorized by X.S. Liang to release here.
+
 
 % n1 = 1; dn = 1;
 

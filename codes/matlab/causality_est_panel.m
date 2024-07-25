@@ -1,30 +1,36 @@
-function [T21, err70, err95, err99] = causality_est_panel(xx1, xx2, t, dt, np)
+function [T21, err90, err95, err99] = causality_est_panel(xx1, xx2, t, dt, np)
 % 
-% function [T21, err90, err95, err99] = causality_est(x1, x2, np)
+% function [T21, err90, err95, err99] = causality_est_panel(x1, x2, np)
 %
-% Estimate T21, the information transfer from series X2 to series X1 
-% dt is taken to be 1.
+% Estimate T21, the information transfer from X2 to X1, where X2 and
+% X1 are panel data indexed by t. 
 %
 % On input:
-%    X1, X2: the series (n by 1 colum vectors)
+%    X1, X2: the panel data arrays (n by 1 colum vectors)
 %    np: integer >=1, time advance in performing Euler forward 
 %	 differencing, e.g., 1, 2. Unless the series are generated
 %	 with a highly chaotic deterministic system, np=1 should be
 %	 used. 
+%    t: n by 1 column vector, index the corresponding time steps of
+%       arrays X1 and X2. For example, X1(1:n) many have only 3 time
+%       steps 1, 2, 3. Then t=[1 2 3 1 2 3...] means that the data
+%       in X1(1) and X1(4) are at the same time step, 1.  
+%    dt: scalar, sampling stepsize
 %
 % On output:
 %    T21:  info flow from X2 to X1	(Note: Not X1 -> X2!)
-%    err90: standard error at 90% significance level
-%    err95: standard error at 95% significance level
-%    err99: standard error at 99% significance level
+%    err90: standard error at 90% confidence level
+%    err95: standard error at 95% confidence level
+%    err99: standard error at 99% confidence level
 %
 % Citations: 
 %    X. San Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
 %    X. San Liang, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
-%    Rong Yineng and X. San Liang, 2021: Panel data causal inference using
+%    Yineng Rong and X. San Liang, 2021: Panel data causal inference using
 %    a rigorous information flow analysis for homogeneous, independent and
 %    identically distributed datasets. IEEE Access,9,2021
-
+%
+% Author: Yineng Rong
 
 % dt = 1;	
 % np = 1;

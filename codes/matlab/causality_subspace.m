@@ -1,6 +1,6 @@
-function [TAB, TBA] = IF_subspace_v1(xx, r, s, np)
+function [TAB, TBA] = causality_subspace(xx, r, s, np)
 % 
-% function [TAB, TBA] = IF_subspace(x, r, s, np)
+% function [TAB, TBA] = causality_subspace(x, r, s, np)
 %
 % Infer the IF between two subspaces A and B
 % (M time series stored as column vectors in X).
@@ -26,9 +26,6 @@ function [TAB, TBA] = IF_subspace_v1(xx, r, s, np)
 % On output:
 %    TAB:  info flow from subspace A to subspace B
 %    TBA:  info flow from subspace B to subspace A
-%    err90: standard error at 90% confidence level
-%    err95: standard error at 95% confidence level
-%    err99: standard error at 99% confidence level
 %
 % Citations: 
 % Liang, X.S. The causal interaction between complex subsystems. 
@@ -36,6 +33,9 @@ function [TAB, TBA] = IF_subspace_v1(xx, r, s, np)
 %
 % Note: Here the symbols M and NL correspond respectively 
 %         to the symbols N and K in the paper.
+%
+% Orignal codes by X. San Liang in 2022
+% Authorized by X.S. Liang to release here.
 
 
 dt = 1;		% dt is set to 1 here; 
