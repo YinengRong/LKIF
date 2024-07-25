@@ -3,6 +3,54 @@
 Created on Tue Jul 23 17:00:15 2024
 
 @author: Yinen
+
+
+multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1)
+
+% By Yineng Rong (yinengrong@foxmail.com)
+% 
+% On input:
+%    X: matrix storing the M time series (each as Nx1 column vectors)
+%    max_lag: time order of lags (default 1)
+%    >=1 lag time step
+%    -1 Determine the lag order of the data based on the AIC criterion.
+%   - 2 Determine the lag order of the data based on the BIC criterion.
+%    np: integer >=1, time advance in performing Euler forward 
+%	 differencing, e.g., 1, 2. Unless the series are generated
+%	 with a highly chaotic deterministic system, np=1 should be
+%	 used. 
+%    (default 1)
+%    dt: frequency of sampling (default 1)
+%
+%    series_teporal_order: Nx1 column vectors, records the timestamp of 
+%    each sample, with a minimum sampling interval of dt (used for 
+%    panel data, or missing measurement data). =>case3
+%    (default [])
+%    significance_test:  1  do the significance test (default)
+%           =0  not (to save the computation time)
+% On output:
+%    a structure value IF_result with sub
+%    IF:  information flow
+%    nIF: normalized information flow
+%    SEIF: standard error of information flow
+%    errr.e90/e95/e99:standard error at 90/95/99% confidence level
+%    dnoise: dH1_noise/dt with correlated noise
+%    dnoise_old: dH1_noise/dt without correlated noise (##  been commented out.)
+%    nIF: normalized information flow without correlated noise
+%    p: p-value of information flow
+%
+% Citations: 
+%    X.S. Liang, 2016: Information flow and causality as rigorous notions
+%    ab initio. Phys. Rev. E, 94, 052201.
+%    X.S. Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
+%    X.S. Liang, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
+%    X.S. Liang, 2021: Normalized Multivariate Time Series Causality Analysis and Causal Graph Reconstruction. Entropy. 23. 679.
+
+% Note: This is an alternative and simplified version of
+%   multi_causality_est.m, which was originally coded by X.S. Liang
+%   Here all the causal relations are inferred once for all.
+% 
+
 """
 
 from LK_Info_Flow.utils import *
@@ -60,7 +108,7 @@ def multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=None, si
                         npy.diag(npy.linalg.inv(X1[:-1, :] @ X1[:-1, :].T)).reshape(m2*max_lag,1)).T
         SE_IF = se_a * npy.abs(C / npy.diag(C)).T / dt # standarized error of IF
         p = (1 - norm.cdf(npy.abs(IF / SE_IF))) * 2 # p-value
-        z99 = 2.56;z95 = 1.96;z90 = 1.65
+        z99 = 2.56;z95 = 1.96;z90 = 1.65 # confidence level
         e90_IF = SE_IF * z90
         e95_IF = SE_IF * z95
         e99_IF = SE_IF * z99

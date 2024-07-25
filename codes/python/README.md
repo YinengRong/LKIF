@@ -83,7 +83,7 @@ IF_result['IF']
    
    SEIF:             standard error of information flow
    
-   err_e90/e95/e99: standard error at 90/95/99# significance level
+   err_e90/e95/e99: standard error at 90/95/99% confidence level
    
    p:                p-value of information flow
 ```
@@ -91,8 +91,8 @@ IF_result['IF']
 
 ### Standard Call for subsystems
 ```sh
-from LK_Info_Flow import multi_causality_est
-IF_result=groups_est(X, ind, np=1, dt=1):
+from LK_Info_Flow import causality_subspace
+IF_result=causality_subspace(X, ind, np=1, dt=1):
 IF_result['TAB']
 ```
 
@@ -115,25 +115,25 @@ IF_result['TAB']
 ```
 
 
-**More details are in the example file (https://github.com/YinengRong/LKIF/blob/main/IF_3.0/LK_Info_Flow/examples/example.ipynb)**
+**More details are in the example file (https://github.com/YinengRong/LKIF/blob/main/LK_Info_Flow/examples/example.ipynb)**
 
 There are 8 cases in the file:
 
-1 bivariate causality
+1 bivariate causality analysis
 
-2 multivariable causality
+2 multivariable causality analysis
 
 3 causality analysis with panel data, discontinuous time series or ensemble data
 
 4 causality between subsystems
 
-5 time delay, confounder, cyclic causality
+5 takens theorom
 
 6 computational cost for large-scale Liang information flow analysis
 
 7 causality analysis with data in the presencee of cross-correlated noise
 
-8 time varying causality
+8 time varying causality analysis
 
 
 ### Citations:

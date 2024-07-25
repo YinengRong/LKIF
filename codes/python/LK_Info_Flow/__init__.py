@@ -1,11 +1,18 @@
 """
 Created on Mon Sep  7 16:26:22 2020
 
-@author: Rong Yineng (yinengrong@foxmail.com)
+@author: Yineng Rong (yinengrong@foxmail.com)
 
 see https://github.com/YinengRong/LKIF for details and examples
 
 updates: 
+
+v3.1.2 20240725
+   The new I/O interface has replaced the previous version.
+
+v3.1 20240701
+   The new I/O interface has replaced the previous version.
+
 
 v3.0 20230912
    The new I/O interface has replaced the previous version.
@@ -176,7 +183,7 @@ Citations:
 import scipy
 import numpy
 from .multi_causality_est import multi_causality_est
-from .group_est import group_est
+from .causality_subspace import causality_subspace
 
 
 

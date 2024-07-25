@@ -1,6 +1,6 @@
 # case 4 (subsystems):
 import numpy as np
-from LK_Info_Flow import groups_est
+from LK_Info_Flow import causality_subspace
 
 
 #generate dataset
@@ -30,5 +30,5 @@ for i in range(20000):
 
 #calculate the causality
 ind=[3,6]; #X0,X1,X2 subsystem A;X3,X4,X5 subsystem B
-IF_g=groups_est(xx=xx,ind=ind)
+IF_g=causality_subspace(xx=xx,ind=ind)
 print('TA->B: %8.4f  TB->A: %8.4f'%(IF_g['TAB'],IF_g['TBA']))

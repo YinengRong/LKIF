@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: LK_Info_Flow
-Version: 3.0.0
+Version: 3.1.2
 Summary: Liang Information Flow Package
 Author-email: Yineng Rong <yinengrong@foxmail.com>, "X. San Liang" <xsanliang@fudan.edu.cn>
 Maintainer-email: Yineng Rong <yinengrong@foxmail.com>
@@ -10,18 +10,16 @@ Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
 Requires-Dist: numpy
 Requires-Dist: scipy
+Requires-Dist: graphviz
 
-Created on Mon Sep  7 16:26:22 2020
+Created on Mon Sep  7 16:26:22 2020 
 
-@author: Yinengrong @   yinengrong@foxmail.com
+@Author: Yineng Rong @ yinengrong@foxmail.com
 
-Created on Wed Jul 12 10:45:37 2023
+ (based on the original MATLAB codes by X. San Liang, which are available at www.ncoads.org)
+        
+@Maintainer: Yineng Rong @ yinengrong@foxmail.com
 
-@author: Yinen
-
-Rong Yineng (yinengrong@foxmail.com)
-
-see https://github.com/YinengRong/LKIF for details and examples
 ## About the module
 Causal analysis, a fundamental problem in various disciplines, has recently been recognized as a promising approach to developing an explainable deep learning. However, incorporation of causality into artificial intelligence algorithms is faced with challenges such as ambiguity, non-quantifiability, and computational inefficiency in traditional formalisms. Over the past two decades, these challenges have been essentially fixed, with the development of a rigorous and **quantitative causality analysis - the Liang-Kleeman information flow theory** (Liang and Kleeman, 2005; Liang, 2008; 2014; 2016; 2021). This theory, which is based on a rigorous footing and derived from first principles, has resulted in notable scientific discoveries in fields ranging from finance, neuroscience, quantum mechanics, artificial intelligence to oceanography, meteorology and climate science. This module provides a practical implementation of the theory, complete with core codes and selected examples. All the codes are translated from the MATLAB scripts orginally written by X.S. Liang and can be downloaded from http://www.ncoads.org/.
 
@@ -50,13 +48,13 @@ To install **LK_Info_flow** package, use `pip` as follows:
 ```
 or
 ```sh
-pip install .\IF_3.0\dist\LK_Info_flow-py3-none-any.whl
+pip install .\IF_3.1\dist\LK_Info_flow-py3-none-any.whl
 ```
 
 ### Standard Call for time series or panel data
 ```sh
-from LK_Info_Flow import causal
-IF_result=causal.multi_causality_est_OLS(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
+from LK_Info_Flow import multi_causality_est
+IF_result=multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
 IF_result['IF']
 ```
 
@@ -99,7 +97,7 @@ IF_result['IF']
    
    SEIF:             standard error of information flow
    
-   err_e90/e95/e99: standard error at 90/95/99# significance level
+   err_e90/e95/e99: standard error at 90/95/99% confidence level
    
    p:                p-value of information flow
 ```
@@ -107,8 +105,8 @@ IF_result['IF']
 
 ### Standard Call for subsystems
 ```sh
-from LK_Info_Flow import causal
-IF_result=causal.group_est(X, ind, np=1, dt=1):
+from LK_Info_Flow import causality_subspace
+IF_result=causality_subspace(X, ind, np=1, dt=1):
 IF_result['TAB']
 ```
 
@@ -131,25 +129,25 @@ IF_result['TAB']
 ```
 
 
-**More details are in the example file(https://github.com/YinengRong/LKIF/blob/main/IF_3.0/LK_Info_Flow/examples/example.ipynb)**
+**More details are in the example file (https://github.com/YinengRong/LKIF/blob/main/LK_Info_Flow/examples/example.ipynb)**
 
 There are 8 cases in the file:
 
-1 bivariate causality
+1 bivariate causality analysis
 
-2 multivariable causality
+2 multivariable causality analysis
 
 3 causality analysis with panel data, discontinuous time series or ensemble data
 
 4 causality between subsystems
 
-5 time delay, confounder, cyclic causality
+5 takens theorom
 
 6 computational cost for large-scale Liang information flow analysis
 
 7 causality analysis with data in the presencee of cross-correlated noise
 
-8 time varying causality
+8 time varying causality analysis
 
 
 ### Citations:
