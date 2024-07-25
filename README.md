@@ -84,7 +84,7 @@ IF_result['IF']
    
    SEIF:             standard error of information flow
    
-   err_e90/e95/e99: standard error at 90/95/99# significance level
+   err_e90/e95/e99: standard error at 90/95/99# confidence level
    
    p:                p-value of information flow
 ```
@@ -92,8 +92,8 @@ IF_result['IF']
 
 ### Standard call for subsystems
 ```sh
-from LK_Info_Flow import groups_est
-IF_result=groups_est(X, ind, np=1, dt=1):
+from LK_Info_Flow import causality_subspace
+IF_result=causality_subspace(X, ind, np=1, dt=1):
 IF_result['TAB']
 ```
 
@@ -116,7 +116,7 @@ IF_result['TAB']
 ```
 
 
-**More details are in the example file ([example.ipynb](https://github.com/YinengRong/LKIF/blob/main/IF_3.1/python/LK_Info_Flow/examples/example.ipynb))**
+**More details are in the example file ([example.ipynb](https://github.com/YinengRong/LKIF/blob/Pre-release/IF_3.1.1/python/LK_Info_Flow/examples/example.ipynb))**
 
 There are 8 cases in the file:
 
@@ -128,7 +128,7 @@ There are 8 cases in the file:
 
 4. Causal inference between different subsystems (Liang, 2022);
 
-5. time delay causality analisys
+5. takens theorem
 
 6. computational cost for large-scale Liang information flow analysis
 
@@ -155,7 +155,7 @@ IF_result$IF
 ### Standard call for subsystems
 ```sh
 source(LK_Info_Flow.R)
-IF_result=groups_est(X, ind, np=1, dt=1):
+IF_result=causality_subspace(X, ind, np=1, dt=1):
 IF_result$TAB
 ```
 =>inputs and outputs can reffer to python package
@@ -174,7 +174,7 @@ IF_result.IF
 ### Standard call for subsystems
 ```sh
 addpath ...
-IF_result=groups_est(X, ind, np, dt):
+IF_result=causality_subspace(X, ind, np, dt):
 IF_result.TAB
 ```
 =>inputs and outputs can reffer to python package
