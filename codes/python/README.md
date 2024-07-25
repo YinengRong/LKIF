@@ -26,6 +26,7 @@ Causal analysis, a fundamental problem in various disciplines, has recently been
 ### Requirements
 * numpy
 * scipy
+* graphiz (plot causal graph)
 
 ### Installation
 To install **LK_Info_flow** package, use `pip` as follows:
@@ -34,10 +35,10 @@ To install **LK_Info_flow** package, use `pip` as follows:
 ```
 or
 ```sh
-pip install .\IF_3.1\dist\LK_Info_flow-py3-none-any.whl
+pip install .\codes\python\dist\LK_Info_flow-py3-none-any.whl
 ```
 
-### Standard Call for time series or panel data
+### Standard call for time series or panel data
 ```sh
 from LK_Info_Flow import multi_causality_est
 IF_result=multi_causality_est(X, max_lag=1, np=1, dt=1, series_temporal_order=None, significance_test=1):
@@ -73,23 +74,23 @@ IF_result['IF']
                        0  not (to save the computation time)
 ```
 
-**outputs**:
+**Outputs**:
 ```sh
+   a structure value IF_result with sub
+
    IF:               information flow
    
    nIF:              normalized information flow
    
-   max_lag:          time order of lags (in IF)
-   
    SEIF:             standard error of information flow
    
-   err_e90/e95/e99: standard error at 90/95/99% confidence level
+   err_e90/e95/e99:  standard error at 90/95/99% confidence level
    
    p:                p-value of information flow
 ```
 
 
-### Standard Call for subsystems
+### Standard call for subsystems
 ```sh
 from LK_Info_Flow import causality_subspace
 IF_result=causality_subspace(X, ind, np=1, dt=1):
@@ -100,7 +101,7 @@ IF_result['TAB']
 ```sh
    X: matrix storing the M time series (each as Nx1 column vectors)
 
-   ind: 2X1 vector (0<=ind[0]<ind[1]<=M); The series of the components of subsystem A are stored in column [0:ind[0]], and the components of subsystem B are in column [ind[0]:ind[1]]
+   ind: 2X1 vector (0<=ind[0]<ind[1]<=M); the index ind[0] that separates A from the system: [0:ind[0]] forms A, and the index ind[0] together with ind[1] separates B from the system: [ind[0]:ind[1]] forms B.
 
    np(default 1): integer >=1, time advance in performing Euler forward differencing, e.g., 1, 2. Unless the series are generated with a highly chaotic deterministic system, np=1 should be used. 
    
@@ -115,25 +116,26 @@ IF_result['TAB']
 ```
 
 
-**More details are in the example file (https://github.com/YinengRong/LKIF/blob/main/LK_Info_Flow/examples/example.ipynb)**
+**More details are in the example file ([example.ipynb](./LK_Info_Flow/examples/example.ipynb))**
 
 There are 8 cases in the file:
 
-1 bivariate causality analysis
+1. Bivariate causality analysis (Liang, 2014);
 
-2 multivariable causality analysis
+2. Multivariable causality analysis (Liang, 2021);
 
-3 causality analysis with panel data, discontinuous time series or ensemble data
+3. Causality analysis with panel data, discontinuous time series or ensemble data (Rong and Liang, 2021)
 
-4 causality between subsystems
+4. Causal inference between different subsystems (Liang, 2022);
 
-5 takens theorom
+5. Takens' theorem
 
-6 computational cost for large-scale Liang information flow analysis
+6. Computational cost for large-scale Liang information flow analysis
 
-7 causality analysis with data in the presencee of cross-correlated noise
+7. Causality analysis with data in the presencee of cross-correlated noise
 
-8 time varying causality analysis
+8. Time varying causality analysis;
+
 
 
 ### Citations:
