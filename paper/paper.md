@@ -196,12 +196,12 @@ To demonstrate, let us reconsider the example in `@liang_2021`. This is a six-va
 
 $$
 \begin{cases}
-x_{0}(t+1)&=-0.6x_{2}(t)+e_{0}(t)+\alpha_{0}\\
-x_{1}(t+1)&=-0.5x_{0}(t)+0.8x_{5}(t)+e_{1}(t)+\alpha_{1}\\
-x_{2}(t+1)&=0.7x_{1}(t)+e_{2}(t)+\alpha_{2}\\
-x_{3}(t+1)&=0.7x_{3}(t)+0.4x_{4}(t)+e_{3}(t)+\alpha_{3} \\
-x_{4}(t+1)&=0.2x_{3}(t)+e_{4}(t)+\alpha_{4}\\
-x_{5}(t+1)&=-0.5x_{5}(t)+e_{5}(t)+\alpha_{5}
+x_{0}(t+1)&=-0.6x_{2}(t)+e_{0}(t+1)+\alpha_{0}\\
+x_{1}(t+1)&=-0.5x_{0}(t)+0.8x_{5}(t)+e_{1}(t+1)+\alpha_{1}\\
+x_{2}(t+1)&=0.7x_{1}(t)+e_{2}(t+1)+\alpha_{2}\\
+x_{3}(t+1)&=0.7x_{3}(t)+0.4x_{4}(t)+e_{3}(t+1)+\alpha_{3} \\
+x_{4}(t+1)&=0.2x_{3}(t)+e_{4}(t+1)+\alpha_{4}\\
+x_{5}(t+1)&=-0.5x_{5}(t)+e_{5}(t+1)+\alpha_{5}
 \end{cases}.\qquad \text{(6)}
 $$
 
