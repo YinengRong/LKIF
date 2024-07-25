@@ -92,23 +92,20 @@ see `@liang_2016`:
 
 
 $$
- \frac{d\mathbf{X}}{dt} = \mathbf{F}(\mathbf{X},t) + \mathbf{B}(\mathbf{X},t) \dot{\mathbf{W}}  \quad \text{(1)} 
+ \frac{d\mathbf{X}}{dt} = \mathbf{F}(\mathbf{X},t) + \mathbf{B}(\mathbf{X},t) \dot{\mathbf{W}} \quad , \quad \text{(1)} 
 $$
 
 where 
-$\mathbf{X}=(\mathbf{X_1},\mathbf{X_2},...,\mathbf{X_d})^T$ 
-is a d-dimensional vector of state variables, where
-$\mathbf{F}=(\mathbf{F_1},\mathbf{F_2},...,\mathbf{F_d})^T$ 
-may be arbitrary nonlinear functions of $\mathbf{X}$ and $t$,  $\dot{\mathbf{W}\ }$ is a vector of
-white noise, and $\mathbf{B}\ =\ (b_{ij}\ )\$ is the matrix of stochastic perturbation amplitudes. 
-Here $\mathbf{F}$ and $\mathbf{B}$ are both assumed to be differentiable with respect to $\mathbf{X}$
-and $t$. For deterministic systems such as those in meteorology and oceanography, $\mathbf{B}$ is zero. 
-`@liang_and_kleeman_2005` defined the rate of information flow/information transfer, or simply information
-flow, from a component $X_j$ to another component $X_i$, as the contribution of entropy from $X_j$ per
-unit time in increasing the marginal entropy of $X_i$. Hereafter by “entropy” we mean Shannon entropy, 
-although other types of entropy have also been explored, such as Kullback –Leiber divergence `[@liang_causation_2018]`,
-Von Neumann entropy `[@yi_quantum_2022]`, etc. `@liang_2016` proved that the rate of information flowing
-from $X_j$ to $X_i$ (in nats per unit time), denoted $T_{j\rightarrow i}$, is
+$\mathbf{X}=(\mathbf{X_1},\mathbf{X_2},...,\mathbf{X_d})^T$ is a d-dimensional vector of state variables, where
+$\mathbf{F}=(\mathbf{F_1},\mathbf{F_2},...,\mathbf{F_d})^T$ may be arbitrary nonlinear functions of $\mathbf{X}$ 
+and $t$,  $\dot{\mathbf{W}\ }$ is a vector of white noise, and $\mathbf{B}\ =\ (b_{ij}\ )\$ is the matrix of stochastic
+perturbation amplitudes. Here $\mathbf{F}$ and $\mathbf{B}$ are both assumed to be differentiable with respect to $\mathbf{X}$
+and $t$. For deterministic systems such as those in meteorology and oceanography, $\mathbf{B}$ is zero. `@liang_and_kleeman_2005` 
+defined the rate of information flow/information transfer, or simply information flow, from a component $X_j$ to another 
+component $X_i$, as the contribution of entropy from $X_j$ per unit time in increasing the marginal entropy of $X_i$. 
+Hereafter by “entropy” we mean Shannon entropy, although other types of entropy have also been explored, such as  
+Kullback –Leiber divergence `[@liang_causation_2018]`, Von Neumann entropy `[@yi_quantum_2022]`, etc. `@liang_2016` 
+proved that the rate of information flowing from $X_j$ to $X_i$ (in nats per unit time), denoted $T_{j\rightarrow i}$, is
 
 $$
 T_{j\to i}=-E\( 
@@ -116,14 +113,13 @@ T_{j\to i}=-E\(
 \int_{\mathbb{R}^{d-2}}\frac{\partial F_iρ_{j⃥}}{\partial x_{i}} dx_{i⃥j⃥}
 \)+
 \frac{1}{2}E\( \frac{1}{\rho_i} \int_{\mathbb{R}^{d-2}}\frac{\partial^2 g_{ii}ρ_{j⃥}}{\partial x_{i}^2} dx_{i⃥j⃥} \)
-\quad \text{(2)}
+\quad , \quad \text{(2)}
 $$
 
 
-where $dx_{i⃥j⃥}$ signifies $dx_1dx_2\ldots dx_{i-1}dx_{i+1}\ldots dx_{j-1}dx_{j+1}\ldots dx_d$ 
-, $E$ stands for mathematical expectation, $g_{ii}={\sum} \_{k=1}^d b_{ik}^2$
-, $\rho_i=\rho_i\(x_i\)$ 
-is the marginal probability density function (pdf) of $𝑋_𝑖$, and $ρ_{j⃥}=\int_{\mathbb{R}^{d-2}}𝜌\(𝐱\)d\mathbf{x}_{j⃥} $.
+where $dx_{i⃥j⃥}$ signifies $dx_1dx_2\ldots dx_{i-1}dx_{i+1}\ldots dx_{j-1}dx_{j+1}\ldots dx_d$ , $E$ stands for mathematical
+expectation, $g_{ii}={\sum} \_{k=1}^d b_{ik}^2$ , $\rho_i=\rho_i\(x_i\)$ is the marginal probability density function (pdf) 
+of $𝑋_𝑖$, and $ρ_{j⃥}=\int_{\mathbb{R}^{d-2}}𝜌\(𝐱\)d\mathbf{x}_{j⃥} $.
 
 Equation (2) has a nice property, which forms the basis of the information flow-based causality analysis `[@liang_2008]`, 
 and has been referred to as “principle of nil causality.” It reads that
@@ -140,7 +136,7 @@ causal graph reconstruction. It together with the principle of nil causality mak
 For linear systems, i.e., when $\mathbf{F}(\mathbf{X})\ =\ \mathbf{f}\ +\ \mathbf{AX}$, and when $\mathbf{B}$ is constant, then 
 
 $$
-T_{j\rightarrow i}=a_{ij}\frac{\sigma_{ij}}{\sigma_{ii}},  \quad \text{(3)}
+T_{j\rightarrow i}=a_{ij}\frac{\sigma_{ij}}{\sigma_{ii}} \quad ,  \quad \text{(3)}
 $$
 
 where $a_{ij}$ is the ${(i,\ j)}^{th}$ entry of $\mathbf{A}$ and $\sigma_{ij}$ the population covariance between $X_i$ and $X_j$. Notice if $X_i$ and $X_j$
@@ -156,7 +152,7 @@ the maximum likelihood estimator (MLE) of (2) for $T_{2\rightarrow1}$ is:
 
 $$
 {\hat{T}}_{2\to 1} = \frac{1}{\text{det} \mathbf{C}} \cdot{\sum} _{j=1}^{d} {\Delta} \_{2j} C _{j,d1}
-\cdot \frac{C _{12}}{C _{11}}, \quad \text{(4)}
+\cdot \frac{C _{12}}{C _{11}} \quad , \quad \text{(4)}
 $$
 
 where $C_{ij}$ is the sample covariance between $X_i$ and $X_j$, $∆_{ij}$ the cofactors of the matrix $\mathbf{C}=C_{ij}$, and $C_{i,dj}$ the sample covariance 
@@ -172,7 +168,7 @@ Besides the information flow between two components, say $X_1$ and $X_2$, it is 
 itself. Following the convention since `@liang_and_kleeman_2005`, write it as $\frac{dH_1^\ast}{dt}$. Then its MLE is
 
 $$
-\frac{d\widehat{H}_ 1^*} {dt}=\frac{1}{\det\mathbf{C}}\cdot\sum_{j=1}^d\Delta_{1j}C_{j,d1}  \quad \text{(5)}
+\frac{d\widehat{H}_ 1^*} {dt}=\frac{1}{\det\mathbf{C}}\cdot\sum_{j=1}^d\Delta_{1j}C_{j,d1} \quad , \quad \text{(5)}
 $$
 
 This result, first obtained in `@liang_2014`, provides an efficient approach to identifying self loops in a causal graph, which has been a challenging issue. 
@@ -200,13 +196,13 @@ To demonstrate, let us reconsider the example in `@liang_2021`. This is a six-va
 
 $$
 \begin{cases}
-x_{0}(t+1)&=-0.6x_{2}(t)+e_{0}(t)+\alpha_{0},\\
-x_{1}(t+1)&=-0.5x_{0}(t)+0.8x_{5}(t)+e_{1}(t)+\alpha_{1},\\
-x_{2}(t+1)&=0.7x_{1}(t)+e_{2}(t)+\alpha_{2},\\
-x_{3}(t+1)&=0.7x_{3}(t)+0.4x_{4}(t)+e_{3}(t)+\alpha_{3},        \qquad \text{(6)}    \\
-x_{4}(t+1)&=0.2x_{3}(t)+e_{4}(t)+\alpha_{4},\\
-x_{5}(t+1)&=-0.5x_{5}(t)+e_{5}(t)+\alpha_{5}.
-\end{cases}
+x_{0}(t+1)&=-0.6x_{2}(t)+e_{0}(t)+\alpha_{0}\\
+x_{1}(t+1)&=-0.5x_{0}(t)+0.8x_{5}(t)+e_{1}(t)+\alpha_{1}\\
+x_{2}(t+1)&=0.7x_{1}(t)+e_{2}(t)+\alpha_{2}\\
+x_{3}(t+1)&=0.7x_{3}(t)+0.4x_{4}(t)+e_{3}(t)+\alpha_{3} \\
+x_{4}(t+1)&=0.2x_{3}(t)+e_{4}(t)+\alpha_{4}\\
+x_{5}(t+1)&=-0.5x_{5}(t)+e_{5}(t)+\alpha_{5}
+\end{cases}.\qquad \text{(6)}
 $$
 
 Here, the errors $e_i\sim N(0,\ 1)$ are independent, constant $\alpha=[0.1\ 0.7\ 0.5\ 0.2\ 0.8\ 0.3]$. As demonstrated in (6), the model encompasses the following 
@@ -277,13 +273,13 @@ the following model is widely used in neural structured determination `@baccala_
 
 
 $$
-X=\begin{cases}
+\begin{cases}
 x_0(t+1)=0.95\sqrt{2}x_0(t)-0.9025x_0(t-1)+e_0(t+1)\\
-x_1(t+1)=0.5x_0(t-1)+e_1(t)\\
-x_2(t+1)=-0.4x_0(t-2)+e_2(t) \qquad \qquad \qquad \qquad \qquad \qquad \qquad \text{(7)} \\
-x_3(t+1)=-0.5x_0(t-1)+0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_3(t)\\
-x_4(t+1)=-0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_4(t)
-\end{cases}.
+x_1(t+1)=0.5x_0(t-1)+e_1(t+1)\\
+x_2(t+1)=-0.4x_0(t-2)+e_2(t+1) \\
+x_3(t+1)=-0.5x_0(t-1)+0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_3(t+1)\\
+x_4(t+1)=-0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_4(t+1)
+\end{cases}. \qquad \text{(7)}
 $$
 
 This five-variable model $(x_0,x_1,x_2,x_3,x_4,x_5)$ reflects a class of systems with lagged fork structure where
@@ -296,25 +292,26 @@ embedding coordinates. So they must represent different processes.) *In other wo
 seven-dimensional*:
 
 $$
-X'=\begin{cases}
+\begin{cases}
 x_0(t+1)=0.95\sqrt{2}x_0(t)-0.9025x_5(t)+e_0(t+1)\\
-x_1(t+1)=0.5x_5(t)+e_1(t)\\
-x_2(t+1)=-0.4x_6(t)+e_2(t)  \\
-x_3(t+1)=-0.5x_5(t)+0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_3(t)\\
-x_4(t+1)=-0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_4(t) \\
+x_1(t+1)=0.5x_5(t)+e_1(t+1)\\
+x_2(t+1)=-0.4x_6(t)+e_2(t+1)  \\
+x_3(t+1)=-0.5x_5(t)+0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_3(t+1)\\
+x_4(t+1)=-0.25\sqrt{2}x_3(t)+0.25\sqrt{2}x_4(t)+e_4(t+1)\\
 x_5(t+1)=x_0(t) \\
 x_6(t+1)=x_5(t)
-\end{cases}.
+\end{cases},
 $$
 
 where $X_5$ and $X_6$ indicate $X_0(t-1)$ and $X_0(t-2)$, respectively. 
 
 
-By correctly constructing the system with $X’$, the accurate causal structure as depicted in \autoref{fig:2}
-can be attained. It is notable that $X_0$, acting as a source of causal hotspot, directly and asynchronously impacts 
-$X_1/X_2/X_3$. Specifically, the influence of $X_0$ at time '*t*' on $X_1$ and $X_3$ is realized after that $X_0$ at one previous
-time points, denoted as $X_5$, has undergone a single-step time process. Conversely, the influence of $X_0$ on $X_2$ at time 
-'*t*' derives solely from $X_0$ undergoing the same single-step time process, but at two previous time point, denoted as $X_6$.
+By correctly constructing the system , the accurate causal structure as depicted in \autoref{fig:2}can be attained.
+It is notable that $X_0$, acting as a source of causal hotspot, directly and asynchronously impacts $X_1/X_2/X_3$. 
+Specifically, the influence of $X_0$ at time '*t*' on $X_1$ and $X_3$ is realized after that $X_0$ at one previous
+time points, denoted as $X_5$, has undergone a single-step time process. Conversely, the influence of $X_0$ on $X_2$
+at time '*t*' derives solely from $X_0$ undergoing the same single-step time process, but at two previous time point,
+denoted as $X_6$.
 
 ![Figure 2: Same as Figure 1 but for Equation 7.\label{fig:2}](figures/causal_structure_case5.png)
 
