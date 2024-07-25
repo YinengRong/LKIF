@@ -1,4 +1,4 @@
-source("LK_Info_Flow.R")
+source("../LK_Info_Flow.R")
 library(MASS)
 
 #____________________________________generate data_________________________

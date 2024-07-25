@@ -1,44 +1,57 @@
 '
 multi_causality_est <- function(X, max_lag=1, np=1, dt=1, series_temporal_order=NULL, significance_test=1) 
+By  Yineng Rong (yinengrong@foxmail.com)
+
+
 source("LK_Info_Flow.R")
 IF_result=multi_causality_est(X, np=1, dt=1, max_lag=1, series_temporal_order=NULL, significance_test=1):
 
 Estimate information flow, the information transfer from columns to raws among
 M time series (stored as a MXM matrix).
 
-On input:
-   X: matrix storing the M time series (each as Nx1 column vectors)
-   max_lag: time order of lags (default 1)
-     >=1 lag time step
-     -1 Determine the lag order of the data based on the AIC criterion.
-     -2 Determine the lag order of the data based on the BIC criterion.
-   np: integer >=1, time advance in performing Euler forward 
-     differencing, e.g., 1, 2. Unless the series are generated
-     with a highly chaotic deterministic system, np=1 should be used. 
-     (default 1)
-   dt: frequency of sampling 
-     (default 1)
-   series_teporal_order: Nx1 column vector that records the timestamps 
-     of each sample, with a minimum sampling interval of dt. This option
-     is used for panel data or datasets with missing measurements..
-     (default [])
-   significance_test:  1  do the significance test (default)
-                       0  not (to save the computation time)
-On output:
+% On input:
+%    X: matrix storing the M time series (each as Nx1 column vectors)
+%    max_lag: time order of lags (default 1)
+%    >=1 lag time step
+%    -1 Determine the lag order of the data based on the AIC criterion.
+%   - 2 Determine the lag order of the data based on the BIC criterion.
+%    np: integer >=1, time advance in performing Euler forward 
+%	 differencing, e.g., 1, 2. Unless the series are generated
+%	 with a highly chaotic deterministic system, np=1 should be
+%	 used. 
+%    (default 1)
+%    dt: frequency of sampling (default 1)
+%
+%    series_teporal_order: Nx1 column vectors, records the timestamp of 
+%    each sample, with a minimum sampling interval of dt (used for 
+%    panel data, or missing measurement data).
+%    (default [])
+%    significance_test:  1  do the significance test (default)
+%           =0  not (to save the computation time)
+%
+% On output:
+%    a structure value IF_result with sub
+%    IF:  information flow
+%    nIF: normalized information flow
+%    SEIF: standard error of information flow
+%    errr.e90/e95/e99:standard error at 90/95/99% confidence level
+%    dnoise: dH1_noise/dt with correlated noise
+%    dnoise_old: dH1_noise/dt without correlated noise (##  been commented out.)
+%    nIF: normalized information flow without correlated noise
+%    p: p-value of information flow
 
-IF_result$XXX:
-
-   max_lag:          time order of lags (in IF)
-
-bellowing outputs are Estimate information flow, the information transfer from columns to raws among
-M time series (stored as a M X M X max_lag matrix).
-
-   IF:               information flow 
-   nIF:              normalized information flow
-   SEIF:             standard error of information flow
-   err_e90/e95/e99:  standard error at 90/95/99# significance level
-   dnoise:           dH1_noise/dt with correlated noise
-   p:                p-value of information flow
+% Citations: 
+%    X.S. Liang, 2016: Information flow and causality as rigorous notions
+%    ab initio. Phys. Rev. E, 94, 052201.
+%    X.S. Liang, 2014: Unraveling the cause-effect relation between time series. Phys. Rev. E 90, 052150.
+%    X.S. Liang, 2015: Normalizing the causality between time series. Phys. Rev. E 92, 022126.
+%    X.S. Liang, 2021: Normalized Multivariate Time Series Causality Analysis and Causal Graph Reconstruction. Entropy. 23. 679.
+% 
+% Note: This is an alternative and simplified version of
+%   multi_causality_est.m, which was originally coded by X.S. Liang
+%   Here all the causal relations are inferred once for all.
+% 
+% Author: Yineng Rong (yinengrong@foxmail.com)
 '  
 
 library(stats)
@@ -151,8 +164,48 @@ multi_causality_est <- function(X, max_lag=1, np=1, dt=1, series_temporal_order=
   return(res)
 }
 
+'
+% function [TAB, TBA] = causality_subspace(x, r, s, np)
+%
+% Infer the IF between two subspaces A and B
+% (M time series stored as column vectors in X).
+% Units: Nats per unit time 
+% (dt is taken to be 1 here; the final result should be divided by dt).
+%
+% On input:
+%    X: matrix storing the M time series (each as NLx1 column vectors),
+%       the first r series forming subspace A, 
+%	the next s-r series forming subspace B.
+%
+%    r: the index that separates A from the system: 
+%	(1...r) forms A,  r < s <= M.
+%
+%    s: the index together with r separates B from the system:
+%	 (r+1,...,s) forms B,  s>r, s<=M.
+%
+%    np: integer >=1, time advance in performing Euler forward 
+%	 differencing, e.g., 1, 2. Unless the series are generated
+%	 with a highly chaotic deterministic system, np=1 should be
+%	 used. 
+%
+% On output:
+%    TAB:  info flow from subspace A to subspace B
+%    TBA:  info flow from subspace B to subspace A
+%
+% Citations: 
+% Liang, X.S. The causal interaction between complex subsystems. 
+%             Entropy, 2022, 24, 3.
+%
+% Note: Here the symbols M and NL correspond respectively 
+%         to the symbols N and K in the paper.
+%
+% Orignal codes by X. San Liang in 2022 by matlab
+% Authorized by X.S. Liang to release here.
+% 
+'
 
-groups_est <- function(xx, ind, dt=1, np=1){
+
+causality_subspace <- function(xx, ind, dt=1, np=1){
   if (length(dim(as.matrix(xx))) != 2){
      stop("multi_est need inputs be like: if with x1,x2:  [ x1[:,] x2[:,m] ], [ x1[:,m] x2[:,] ], [ x1[:,m] x2[:,n] ], [ x1[:,] x2[:,] ], if with x only: x[:,0]->x1 x[:,1]->x2 x[:,1:]->others")
   }

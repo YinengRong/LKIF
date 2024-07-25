@@ -1,6 +1,6 @@
 # case 1 (bivariate causality):
 set.seed(0)
-source("LK_Info_Flow.R") 
+source("../LK_Info_Flow.R") 
 
 #generate dataset
 

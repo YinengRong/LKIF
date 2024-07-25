@@ -1,4 +1,4 @@
-source("LK_Info_Flow.R")
+source("../LK_Info_Flow.R")
 
 a11 <- 0.3; a12 <- -0.4; a22 <- 0.7; a21 <- 0; b1 <- 0.4; b2 <- 0.5
 x <- numeric(100000)

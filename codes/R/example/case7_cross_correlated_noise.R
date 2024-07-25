@@ -1,5 +1,5 @@
 # case 7 (data with cross-correlated noise):
-source("LK_Info_Flow.R")
+source("../LK_Info_Flow.R")
 library(R.matlab)
 # To generate the cross-correlated noise, we use functions to generate noise based on the MVGC MATLAB toolbox by Barnett and Seth.
 

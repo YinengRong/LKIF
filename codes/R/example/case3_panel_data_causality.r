@@ -1,7 +1,7 @@
 # case 3(panel data, discontinuous time series or ensemble data):
 ## 3.1________________________________________________
 library(progress)
-source("LK_Info_Flow.R")
+source("../LK_Info_Flow.R")
 # Define parameters
 a <- matrix(c(0.3, 0, 0, 0.4,
               0.5, 0.7, 0.1, 0.5,

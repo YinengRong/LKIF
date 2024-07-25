@@ -1,4 +1,4 @@
-source("LK_Info_Flow.R")
+source("../LK_Info_Flow.R")
 # Set the random seed
 #set.seed(0)
 

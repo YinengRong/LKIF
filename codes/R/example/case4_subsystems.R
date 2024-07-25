@@ -1,5 +1,5 @@
 # Replace LK_Info_Flow with your R equivalent package
-source("LK_Info_Flow.R")
+source("../LK_Info_Flow.R")
 
 #generate dataset
 a11 <- -0.5; a21 <- 0.5; a31 <- 0.2; b1 <- 1.0
@@ -26,5 +26,5 @@ for (i in 1:20000) {
 
 #calculate the causality
 ind <- c(3,6) #X0,X1,X2 subsystem A;X3,X4,X5 subsystem B
-IF_g <- groups_est(xx=xx, ind=ind)
+IF_g <- causality_subspace(xx=xx, ind=ind)
 cat(sprintf('  TA->B: %8.4f  TB->A: %8.4f', IF_g$TAB, IF_g$TBA))
