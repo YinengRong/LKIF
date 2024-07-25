@@ -35,7 +35,7 @@ To install **LK_Info_flow** package, use `pip` as follows:
 ```
 or
 ```sh
-pip install .\IF_3.1.1\dist\LK_Info_flow-py3-none-any.whl
+pip install .\codes\python\dist\LK_Info_flow-py3-none-any.whl
 ```
 
 ### Standard call for time series or panel data
@@ -76,15 +76,15 @@ IF_result['IF']
 
 **Outputs**:
 ```sh
+   a structure value IF_result with sub
+
    IF:               information flow
    
    nIF:              normalized information flow
    
-   max_lag:          time order of lags (in IF)
-   
    SEIF:             standard error of information flow
    
-   err_e90/e95/e99: standard error at 90/95/99# confidence level
+   err_e90/e95/e99:  standard error at 90/95/99% confidence level
    
    p:                p-value of information flow
 ```
@@ -101,7 +101,7 @@ IF_result['TAB']
 ```sh
    X: matrix storing the M time series (each as Nx1 column vectors)
 
-   ind: 2X1 vector (0<=ind[0]<ind[1]<=M); The series of the components of subsystem A are stored in column [0:ind[0]], and the components of subsystem B are in column [ind[0]:ind[1]]
+   ind: 2X1 vector (0<=ind[0]<ind[1]<=M); the index ind[0] that separates A from the system: [0:ind[0]] forms A, and the index ind[0] together with ind[1] separates B from the system: [ind[0]:ind[1]] forms B.
 
    np(default 1): integer >=1, time advance in performing Euler forward differencing, e.g., 1, 2. Unless the series are generated with a highly chaotic deterministic system, np=1 should be used. 
    
@@ -124,17 +124,17 @@ There are 8 cases in the file:
 
 2. Multivariable causality analysis (Liang, 2021);
 
-3. causality analysis with panel data, discontinuous time series or ensemble data (Rong and Liang, 2021)
+3. Causality analysis with panel data, discontinuous time series or ensemble data (Rong and Liang, 2021)
 
 4. Causal inference between different subsystems (Liang, 2022);
 
-5. takens theorem
+5. Takens' theorem
 
-6. computational cost for large-scale Liang information flow analysis
+6. Computational cost for large-scale Liang information flow analysis
 
-7. causality analysis with data in the presencee of cross-correlated noise
+7. Causality analysis with data in the presencee of cross-correlated noise
 
-8. time varying causality analysis;
+8. Time varying causality analysis;
 
 
 ## R
@@ -194,7 +194,5 @@ IF_result.TAB
 **for subsystems:**
 * **X. San Liang, 2022**: The Causal Interaction between Complex Subsystems. Entropy. 24, 3.
 
-## Chagelogs in V3.1.1
-Optimized some IO interfaces.
 
 The codes are rewritten from the MATLAB scripts (causality_est.m, tau_est.m, multi_causality_est.m, etc.) on Prof. X. San Liang's lab website (http://www.ncoads.org/article/show/67.aspx)
