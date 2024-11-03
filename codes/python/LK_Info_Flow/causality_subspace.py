@@ -94,9 +94,11 @@ def causality_subspace(xx,ind,dt=1,np=1):
     Cr[ind[0]:ind[1],ind[0]:ind[1]]=C[ind[0]:ind[1],ind[0]:ind[1]];
     for i in range(ind[0]):
         Cr[i,i]=1
+    Cr=Cr[:ind[1],:ind[1]]
+    Crr=Crr[:ind[1],:ind[1]]
     invCr=npy.linalg.inv(Cr);
     invCrr=npy.linalg.inv(Crr);
-    AC=npy.dot(ann[:ind[1],:ind[1]],C[:ind[1],:ind[1]])
+    AC=npy.dot(ann[:ind[1],:ind[1]].T,C[:ind[1],:ind[1]])
     TBA=npy.trace(npy.dot(invCr[ind[0]:ind[1],ind[0]:ind[1]],AC[ind[0]:ind[1],ind[0]:ind[1]].transpose()))-npy.trace(ann[ind[0]:ind[1],ind[0]:ind[1]])
     
     TAB=npy.trace(npy.dot(invCrr[:ind[0],:ind[0]],AC[:ind[0],:ind[0]].transpose()))-npy.trace(ann[:ind[0],:ind[0]])
