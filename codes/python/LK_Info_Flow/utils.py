@@ -79,6 +79,6 @@ def lag_order(X, t, option):
 
 def temporal_lag(X, m1, max_lag):
     # Removing causality from future to past when max_lag > 1
-    return X[:m1].reshape([m1,m1,max_lag])
+    return X[:m1].T.reshape([max_lag,m1,m1]).transpose(2, 1, 0)
 
 
